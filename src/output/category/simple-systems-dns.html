@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
+        <title>Studio Sleepy Giraffe - Simple Systems, DNS</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Studio Sleepy Giraffe</a></h1>
+                <nav><ul>
+                    <li><a href="/pages/my-super-post.html">My super title</a></li>
+                    <li><a href="/category/git-github-o365.html">git, github, O365</a></li>
+                    <li><a href="/category/postmortem-bento.html">Postmortem, Bento</a></li>
+                    <li><a href="/category/postmortem-cmscontent.html">Postmortem, CMSContent</a></li>
+                    <li><a href="/category/postmortem-panerus.html">Postmortem, Panerus</a></li>
+                    <li><a href="/category/postmortem-wizard.html">Postmortem, Wizard</a></li>
+                    <li><a href="/category/python-systemd.html">python, systemd</a></li>
+                    <li><a href="/category/security-private-cloud-iot-privacy.html">Security, Private Cloud, IoT, Privacy</a></li>
+                    <li class="active"><a href="/category/simple-systems-dns.html">Simple Systems, DNS</a></li>
+                    <li><a href="/category/simple-systems-http.html">Simple Systems, HTTP</a></li>
+                    <li><a href="/category/simple-systems-irc.html">Simple Systems, IRC</a></li>
+                    <li><a href="/category/simple-systems-smtp.html">Simple Systems, SMTP</a></li>
+                    <li><a href="/category/simple-systems-socket.html">Simple Systems, Socket</a></li>
+                    <li><a href="/category/simple-systems-telnet.html">Simple Systems, Telnet</a></li>
+                    <li><a href="/category/video-game-review.html">video game, review</a></li>
+                    <li><a href="/category/website.html">Website</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/simple-systems-series-part-2-dns.html">Simple Systems Series Part 2: DNS</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-06-18T00:00:00-05:00">
+                Published: Thu 18 June 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/toben-archer.html">Toben Archer</a>
+        </address>
+<p>In <a href="/category/simple-systems-dns.html">Simple Systems, DNS</a>.</p>
+
+</footer><!-- /.post-info --><h1>DNS</h1>
+<p>This post recounts my efforts in implmenting the DNS protocol. Both a client and a server. It is my third post in my "Simple Systems" series. As with all posts in this series remember: Emphasis was placed on making the process of the protocol understandable, not on the code being effecient. One can't effectively make a more effecient system until you fully understand the problem. So this post is aimed at some one who does not know how DNS works and would like an easy to follow example of a fully functioning DNS client and DNS server. </p>
+<h2>Objectives</h2>
+<ol>
+<li>Create a DNS Client that can make requests of real DNS servers.</li>
+<li>Create a DNS Server that can field requests from real DNS Clients.</li>
+</ol>
+<h2>Introduction</h2>
+<p>DNS, Domain Name Service, is a protocol for translating domain names, such as studiosleepygiraffe.com, into IP addresses, such as 127.0.0.1. Strictly speaking it is not a necessary system for the internet to work, but niether is a phone book for the telephone system. But you can immediately see the value of it with such an analogy. DNS is basically a phone book. Not only does it allow you to remember a name of a website instead of it's IP address, it allows that IP address to change as the organizations and people behind websites change and upgrad their hardware. </p>
+<p>Origionally described in 1983 in <a href="https://tools.ietf.org/html/rfc883">RFC 883</a>, it has been empowering the use of the internet since. There have been over 50 RFCs with recommending changes and upgrades to allow for ever more complex cases to be managed by it. Most interesting in my opinion is <a href="https://tools.ietf.org/html/rfc1035#page-12">RFC 1035</a> which introduced the TXT record type which is a generic record that simple hold plain text. To me this sounds like record type that will grow in popularity as APIs become more common. It can serve as a simple place to store configurations related to your API. It makes DNS more of a Data Negotioation Service and less strictly a Domain Name Service.</p>
+<p>There are a lot of things that can make DNS complicated, with recursive calls to other servers and authoritative answers and the like. But when you trim away the 90% that is edge cases and focus on the 10% that is the core use it gets pretty simple. The simplest way to think of DNS is a key-value store. Key: A:studiosleepygiraffe.com, value: 96.2.162.67. Key: TXT:studiosleepygiraffe.com, value: "This is an example message." and so on. You can think of the different records as different kinds of keys, but all that really changes is a few bits idenifying the record type. Like short hand.</p>
+<h2>DNS Methods</h2>
+<p>I'm trying to avoid making files like these because of my emphasis on making things serialized as possible in execution. But practicality beats purity. The nine methods in this file made the DNS Client and DNS Server much easier to read and understand so I went with it. The file is well documented with comments, so I will let them speak for themselves. I just wanted to mention why this existed.</p>
+<h2>DNS Client</h2>
+<p>As usual the file is filled with comments documenting the process, so a bird's eye view of the process is all I'll give here.</p>
+<ol>
+<li>Create a header. </li>
+<li>Add questions to the header. Note that in a real system you'd have to do these steps inverted so that you knew how many questions there were when you made the header. Here we simplified and only have one question.</li>
+<li>Connect to a DNS server over UDP</li>
+<li>Send our request</li>
+<li>Receive the response</li>
+<li>Read out the number of questions and the number of answers.</li>
+<li>Process out the questions. They are variable length so we need to process them to find where they stop.</li>
+<li>Process the answers.</li>
+<li>Print.</li>
+</ol>
+<h2>DNS Server</h2>
+<p>I had to use a socket server to get the DNS Server to behave correctly. UDP is managed differently from TCP because it is effectively one way. I won't go into to much detail now because this is about DNS not UDP, but UDP essentially is party A leaving party B a voice message and then party B responding in kind. It is super light weight because it has no checking for succesful transfer, but also means it takes more effort on the application programmer's side to get it to work as one might expect. That being said, to keep things simple I used a socket server.</p>
+<p>I also had to include an "ipv4_to_bytes" method. Just a reminder that IP addresses are also human readable representations of the actual machine address: a string of 32 bits.</p>
+<p>The DNS Server functions rather simply:
+1. Wait for request
+2. Parse header to find out number of questions.
+3. Parse questions.
+4. Lookup keys in local dictionary.
+5. Create Response.
+6. Create Header.
+7. Send response.</p>
+<h2>Lessons Learned</h2>
+<p>I almost didn't do DNS. After two weeks of trying to understand it I nearly gave up. But I am glad I didn't. This has been a very insightful process. It is where I came to understand that only about 10% of a protocol matters, the rest is edge cases. I mentioned above that DNS is basically a key-value store. And while that is true, appraoching it that way didn't help me understanding it, at first. The problem is that's not how the writers of the RFC seemed to imagine it. They talked firstly about how servers are setup, what the network looks like, etc. They had a whole RFC, 882, on DNS before the main one, 883, that didn't ever address the layout of the DNS request (so far as I can tell). In RFC 883 they also described how the records were to be stored on disk. They were master minds trying to give shape to the internet that would be. That was not my objective.</p>
+<p>The result of this was confusion on my part. I ended up pulling up a <a href="https://github.com/paulc/dnslib">python library</a> for DNS to figure out how DNS requests were formed. It got me to RFC 1035 section 4.1.1: Message, Format, Header section format. Section 4 of the RFC is well written and the most important part of DNS. It explains what each bit does and how they are laid out. This is where I finally got traction with the protocol. I wrote the interceptor to capture a DNS request and managed to capture a packet and examine it. I followed the guide of RFC 1035 and wrote the methods that parsed it into usable bits. I then learned how to do this the other direction. By the time I finished the DNS client I felt quite powerful. It's as if the magic wand I had suddenly became a power drill. The magic and mystery was gone, leaving nothing but potential behind. </p>
+<p>The record types in DNS had always confused me. As simple as they are I just wasn't getting them. Having to write something to manage each record type made me intimately familiar with the important ones, A, CNAME, POINTER, really fast. Which is one of the goals here: Understand how DNS works. By making it I learned it throughly.</p>
+<h2>Conclusion</h2>
+<p>This system validated my idea for this series of posts. By making it I learned it throughly. I would highly recommend this approach to anyone, including myself, who wants to understand how a system works. When you simply read documentation on the outside it can be hard to figure out why something is broken. But when you understand it internally, you can see obscure error messages and understand what they mean and know how to fix them.</p>
+<h2>Real Code</h2>
+<p>If you are looking to do real work with DNS I would recommend <a href="https://github.com/rthalley/dnspython">DNS Python</a> or <a href="https://github.com/paulc/dnslib">DNSLib</a>. The latter was the one I read to get an idea of how DNS works. They are definately much better, and complete, implementations of DNS than what I have done here. If you want to setup your own DNS server try out <a href="https://pi-hole.net/">PI-Hole</a>.</p>
+<p>Thank you for reading. </p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

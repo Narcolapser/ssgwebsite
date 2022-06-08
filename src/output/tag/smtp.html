@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="Pelican" />
+        <title>Studio Sleepy Giraffe - SMTP</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Studio Sleepy Giraffe</a></h1>
+                <nav><ul>
+                    <li><a href="/pages/Home.html">Home</a></li>
+                    <li><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/simple-systems-series-part-3-smtp.html">Simple Systems Series Part 3: SMTP</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-06-25T00:00:00-05:00">
+                Published: Thu 25 June 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/toben-archer.html">Toben Archer</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/simple-systems.html">Simple Systems</a> <a href="/tag/smtp.html">SMTP</a> </p>
+</footer><!-- /.post-info --><h1>SMTP</h1>
+<p>This post recounts my attempts to create an SMTP server in python. This is the fourth post in my series of "Simple Systems." As with the previous posts, remember as you read that the code was designed to make the process easy to understand. I make things as serial as possible to make it easy to trace how information is moving from one step to the next. The result is code that is not the most efficient in execution or maintainability, but it's easy to read. If you want to understand how an SMTP server or client works, I hope that you will after reading this post.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Write an SMTP client that can send emails to real SMTP servers.</li>
+<li>Write an SMTP server that can receive email from real SMTP clients.</li>
+</ul>
+<h2>Introduction</h2>
+<p>Simple Mail Transfer Protocol, SMTP, was an early eMail protocol. Coming in just a hair ahead of DNS in <a href="https://tools.ietf.org/html/rfc821">rfc 821</a>, in 1982. There are other protocols, such as proprietary Microsoft and Google things, trying to dethrone SMTP (and it's companions in arms POP3 and IMAP); fortunately, the open standards remain at the top. (Get a <a href="https://protonmail.com/">ProtonMail</a> for your self to get out from under Google and Microsoft's thumbs.) And with many things that live for remarkably long, the simplicity is a driving factor. But that is certainly not what you may experience if you try to implement it yourself.</p>
+<p>SMTP is the second hardest protocol I've done outside of DNS. (Spoiler, I'm writing this post after I've implemented all the protocols.) And it suffered from the same problem: 90% of it doesn't matter. If you try to read the Wikipedia page on SMTP, it will tell you about MUA, MSA, MTA, MX, and MDA. These various agents are part of a much bigger system for getting around firewalls and multiple computers being inaccessible. But if you are just trying to send an email, the whole point of the abstraction is you don't need to know about those.</p>
+<p>Further down in the Wikipedia article, it gives an example of an SMTP transport. This is what matters. At the end of the day, SMTP is my computer connecting to a server to send an email. My computer connects, the two shake hands, a data body is transferred, and then the server takes it from there. So if you want to implement it yourself, skip to sections 4.1 and 4.3 of <a href="https://tools.ietf.org/html/rfc821">rfc 821</a>.</p>
+<p>You may have noticed two crucial details that I just glazed over: SMTP has two other companion protocols, and SMTP sends mail, but how would one receive mail with it? SMTP is a Push protocol, meaning it makes a connection to a remote computer and pushes data up to it. It cannot pull. Inversely POP3 is a pull protocol; it is used to connect to a server and pull email down from it. (IMAP is also a pull protocol, but with many inbox management features as well.) You can set up a system that uses SMTP only, but it introduces challenges. If your computer is off, where does your email go? If your computer is not accessible to the outside world, which it isn't, how does your email get routed to you? The compromises that were made are these other protocols. When I was a kid, everyone still had an email address through their ISP. Their ISP would host an SMTP and POP3 server. Email to your address would then go to your ISP's server, and then when you turned your computer on, you would use POP3 to pull the email down. This way, the network(i.e., the internet) could be continually adding and removing computers, and email would still get through.</p>
+<h2>Client</h2>
+<p>In Cory Doctorow's book "Little Brother" talks about how SMTP is so simple you could do it over a chat client. Unfortunately, most chat clients are programmed to other protocols, but he's not wrong in theory. At the end of the day, we will have a brief chat with an SMTP server. We are going to:</p>
+<ol>
+<li>Introduce ourselves.</li>
+<li>Let the server know we want to send an email.</li>
+<li>Let the server know who we are sending the email to.</li>
+<li>Let the server know we want to send the message body</li>
+<li>Send the message body, adding a line with a single "." to mark the message's end.</li>
+<li>To be compliant with the SMTP protocol, you must request the server close your connection.</li>
+</ol>
+<p>The actual python client I wrote has two other steps before these, though: Parse the CLI arguments from the user, read in a text body interactively from the user. So once we have the information from the user to make the email, the steps above get it sent.</p>
+<h2>Server</h2>
+<p>The server is a likewise simple machine when it comes down to it. </p>
+<ol>
+<li>Setup a socket</li>
+<li>Listen on the socket</li>
+<li>Accept the connection</li>
+<li>Wait for the user to initiate a "MAIL" request.</li>
+<li>Wait for "RCPT" requests and save it to the recipient variable.</li>
+<li>Wait for the "DATA" request, which signifies the start of the message body.</li>
+<li>Keep adding to the message body till the terminator "<CRLF>.<CRLF>" is issued.</li>
+<li>Save the message to a file locally.</li>
+<li>Close the connection on request.</li>
+</ol>
+<h2>Lessons Learned</h2>
+<p>The lesson I learned in my DNS post was really re-inforced here. You only need a small portion of the actual protocol to get it to work sufficiently. But remember, you sacrifice stability and compliance by only implementing a part of a protocol. However, since this was just to get the basic idea of how it works, we are okay with that. </p>
+<p>The other major lesson learned here was SMTP itself. Kind of a lame answer, but it is accurate and one I should mention. As with learning sockets in the first place, learning SMTP opens up to me a world of opportunity. The idea that I could set up SMTP in a script to have it keep me informed of things is fascinating. Further, the idea of setting up an SMTP server in my network and being able to "email" my home servers is also intriguing. A lot can be done with this knowledge, so merely having the know-how is a worthwhile lesson.</p>
+<h2>Conclusion</h2>
+<p>Text protocols are much more accessible than binary ones to figure out. Since everything mostly goes through JSON now, it's not a big deal, but my goodness SMTP was much less of a hassle to figure out than DNS. When all your messages are plain text, you can simply spit out the text to figure out what is going on. That makes debugging problems much more manageable.</p>
+<h2>Real Code</h2>
+<p>If you want to send an email with python, this is a straightforward one since python comes with a builtin <a href="https://docs.python.org/3/library/smtplib.html">SMTP library</a>. That really makes the process relatively straightforward, though admittedly, you will probably also need to use the python email library to get it to work. You python also comes with a built-in <a href="https://docs.python.org/3/library/smtpd.html">SMTP Server</a> if you want to set up a real SMTP server as well.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
