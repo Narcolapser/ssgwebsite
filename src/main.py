@@ -28,8 +28,8 @@ post_dict = {post['date']:post for post in posts}
 
 print(all_tags)
 
-@app.route('/')
-@app.route('/home')
+@app.route('/index.html')
+@app.route('/home.html')
 def root():
     return render_template('index.html')
 
@@ -38,17 +38,17 @@ def get_resource(file_name):
     print(file_name)
     return send_file("static/" + file_name)
 
-@app.route('/post')
+@app.route('/post.html')
 def get_posts():
     return render_template('posts.html',posts=posts)
 
-@app.route('/post/<post_date>')
+@app.route('/post/<post_date>.html')
 def get_post(post_date):
     post = post_dict[post_date]
     post['content_html'] = markdown2.markdown(post['content'])
     return render_template('post.html',post=post_dict[post_date])
 
-@app.route('/tag')
+@app.route('/tag.html')
 def get_tags():
     tag_collections = {}
     for tag in all_tags:

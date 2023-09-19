@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Studio Sleepy Giraffe: A simple site for a silly man.</title>
+    <style>
+        :root {
+            --primary-color: #FFC107;
+            --accent-color: #536DFE;
+            --background-color: #212121;
+            --text-color: #BDBDBD;
+            --primary-dark: #FFA000;
+            --primary-light: #FFECB3;
+        }
+
+        @font-face {
+            font-family: 'Courier Prime';
+            src: url('/static/font/CourierPrime-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav a:link {
+            color: var(--accent-color); /* Unvisited link color */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        nav a:visited {
+            color: var(--primary-dark); /* Visited link color */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        hr {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <img src="/static/inverted_SSG.png">
+
+        <nav>
+            <h2>
+            <a href="/home.html">Home</a>
+            <a href="/post.html">Posts</a>
+            <a href="/tag.html">Tags</a>
+        </h2>
+        <hr/>
+        </nav>
+    </center>
+    <div class="content">
+        
+    <h1>Python is Awesome</h1>
+    <p>Publish Date: 2020-05-28</p>
+    <div class="post-content">
+        <h1>Python is wonderful</h1>
+
+<h2>The challenge</h2>
+
+<p>Just a quick exultation here. I love python. We have a service that used a PHP backend to log get requests into a CSV. When we migrated to a new server, it broke, and nobody knew how to fix PHP. I spent 2.5h trying to fix it. I then told my boss I could either continue banging my head or write a python script to do it. The latter would probably be faster. He green lite the python option, and away I went. Thursday morning at 8:30, I started and was told it would be good to have it by Monday. By 9:15, I had written the script, commented it, set up version control, and installed it as a service.</p>
+
+<h2>The script</h2>
+
+<p>The big time-saver here was avoiding Apache or Nginx. And this is made possible by python's built-in Http server. While not a recommended tool for a production environment, it is amazing because it is simple for serving basic utilities. The bulk of the script was just the parsing of the binary strings of the query string into a dictionary for easy formatting. But the three keys were:</p>
+
+<ol>
+<li>Extending BaseHTTPRequestHandler with a new do_GET method.</li>
+<li>httpd = HTTPServer(('0.0.0.0', 80), {The extended handler from point 1})</li>
+<li>httpd.serve_forever()</li>
+</ol>
+
+<p>That's all it took to create a webserver that covered all my needs. Amazing. I love it.</p>
+
+<h2>The service</h2>
+
+<p>I'd be remised if I didn't also mention how simple systemd was. It needs a description, path to a file to execute, and a state inclusion. The last one (WantedBy=multi-user.target) isn't intuitive, but it's simple to slap on to everything and call it good. Beyond that:</p>
+
+<pre><code>    cp cdprpy.service /etc/systemd/system
+    systemctl daemon-reload
+    systemctl enable cdprpy
+    systemctl start cdprpy
+</code></pre>
+
+<p>Done. Ah, this was a satisfying morning.</p>
+ 
+    </div>
+
+    </div>
+</body>
+
+</html>

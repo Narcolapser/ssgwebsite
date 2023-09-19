@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Studio Sleepy Giraffe: A simple site for a silly man.</title>
+    <style>
+        :root {
+            --primary-color: #FFC107;
+            --accent-color: #536DFE;
+            --background-color: #212121;
+            --text-color: #BDBDBD;
+            --primary-dark: #FFA000;
+            --primary-light: #FFECB3;
+        }
+
+        @font-face {
+            font-family: 'Courier Prime';
+            src: url('/static/font/CourierPrime-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav a:link {
+            color: var(--accent-color); /* Unvisited link color */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        nav a:visited {
+            color: var(--primary-dark); /* Visited link color */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        hr {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <img src="/static/inverted_SSG.png">
+
+        <nav>
+            <h2>
+            <a href="/home.html">Home</a>
+            <a href="/post.html">Posts</a>
+            <a href="/tag.html">Tags</a>
+        </h2>
+        <hr/>
+        </nav>
+    </center>
+    <div class="content">
+        
+    <h1>Simple Systems Series Part 0: Sockets</h1>
+    <p>Publish Date: 2020-06-04</p>
+    <div class="post-content">
+        <p>For my own education, I've set about on an endeavor to reimplement several standard internet protocols. Because there are significant benefits to understanding when you teach a topic yourself, I am writing this next series of blog posts to be informative to whoever may find them. </p>
+
+<p>I intend to recreate the following protocols:</p>
+
+<ul>
+<li>Telnet</li>
+<li>DNS</li>
+<li>SMTP</li>
+<li>HTTP</li>
+<li>IRC</li>
+</ul>
+
+<p>In doing so, I expect I'll be able to have a firm understanding of each of these protocols and how they work in our real world. Some of these are antiquated, like Telnet,  but that doesn't mean that understanding them is useless. Understanding the stepping stones to the protocols we use today, like ssh and sftp, can provide valuable insight into why make the decisions that were made with those protocols.</p>
+
+<p>With each one, my objective is to create a piece of software that will interact with "real" code. As in, I will make a program that you can telnet into and create a program that can telnet into another machine. These will not be pieces of software that are intended to be used in a real-world environment, but rather easy for someone new to the protocol to read and understand. (Basically what I want and why I'm writing these posts.)</p>
+
+<h2>Sockets</h2>
+
+<p>However, before I dive into those protocols, there is another part of programming history that needs to be covered. Sockets. This part of network programming is old, dating back to 1983, but was so well done and so integral to our world that it remains the backbone of networking. </p>
+
+<p>I became quite good at using sockets during my undergrad years. It started when I wanted to learn how to make a webserver with Python. This search led me to "Twisted" a library or framework (depending on how you use it) for Python. I found a tutorial by Dave Peticolas on an introduction to Twisted and asynchronous programming, which you can find <a href="http://krondo.com/an-introduction-to-asynchronous-programming-and-twisted/">here</a>. </p>
+
+<p>I must apologize to Dave as I never made it past his second part (there are 22). Though at the same time, I must thank him. I'm sure he said this as a minor detail, but this sentence sent me down a path that made me a much better programmer:</p>
+
+<blockquote>
+  <p>If you have never used sockets before, you might read the <a href="http://docs.python.org/library/socket.html#module-socket">socket module documentation</a> now, especially the example code towards the end.</p>
+</blockquote>
+
+<p>At the time, that link pointed to the Python 2.6 implementation of the socket library. I'm a skimming kind of guy, I usually search and skim the python standard library for the information I need, as I believe most of us do. However, I read that article from top to bottom in one sitting (a feat for a person with dyslexia). It's gotten longer now, but if you want to understand how networking programming works, read it. Python so beautifully lays bare all of the intricate facets of network programming in an easy way to use. I made a simple socket client and server as an example.</p>
+
+<p>The sophomore me saw the incredible potential here. I could write anything. I was not restricted to it being Html. I imagined distributed computing, distributed file systems, all sorts of things. All of these already existed, of course, and I did not need to recreate them but didn't stop me from trying. The ideas only were fascinating to me.</p>
+
+<p>I did make a <a href="https://github.com/narcolapser/ceranubis">distributed computing system</a>, but I ended up using SQL and not sockets as the backend. The reason being, unfettered freedom is hard to manage. That unfettered freedom is what brings me back to this post. Rather than make everything on my own, I'm going to make what other people have made, the programmer equivalent of painting other painters' paintings. This is one way I hope to become a better programmer. </p>
+ 
+    </div>
+
+    </div>
+</body>
+
+</html>
