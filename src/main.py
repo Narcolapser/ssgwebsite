@@ -4,6 +4,7 @@ app = Flask(__name__)
 app.config['FREEZER_DESTINATION'] = '../dist'
 
 @app.route('/')
+@app.route('/home')
 def root():
     return render_template('index.html')
 
