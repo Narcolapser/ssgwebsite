@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tags</h1>
+    {% for tag in tags %}
+    <h2>{{ tag }}</h2>
+    <ul>
+        {% for post in tags[tag] %}
+            <li>
+                <a href="/post/{{ post['date'] }}">{{ post['date'] }}: {{ post['title'] }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+{% endblock %}
