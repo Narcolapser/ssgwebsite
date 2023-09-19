@@ -46,7 +46,7 @@
 
 <body>
     <center>
-        <img src="static/inverted_SSG.png">
+        <img src="/static/inverted_SSG.png">
 
         <nav>
             <h2>
@@ -61,64 +61,11 @@
         
     <h1>Tags</h1>
     
-    <h2>DNS</h2>
+    <h2>Wizard</h2>
     <ul>
         
             <li>
-                <a href="/post/2020-06-18">2020-06-18: Simple Systems Series Part 2: DNS</a>
-            </li>
-        
-    </ul>
-    
-    <h2>SMTP</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2020-06-25">2020-06-25: Simple Systems Series Part 3: SMTP</a>
-            </li>
-        
-    </ul>
-    
-    <h2>Privacy</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2019-11-15">2019-11-15: Network Choker</a>
-            </li>
-        
-    </ul>
-    
-    <h2>github</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2018-04-10">2018-04-10: Python O365 Anxiety</a>
-            </li>
-        
-    </ul>
-    
-    <h2>Website</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2018-01-30">2018-01-30: ITS Chili Cook Off</a>
-            </li>
-        
-            <li>
-                <a href="/post/2018-01-22">2018-01-22: Blog Introduction</a>
-            </li>
-        
-    </ul>
-    
-    <h2>video game</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2021-10-27">2021-10-27: Video Game Review: Littlewood</a>
-            </li>
-        
-            <li>
-                <a href="/post/2021-09-18">2021-09-18: Video Game Review: American Truck Simulator</a>
+                <a href="/post/2021-08-28">2021-08-28: Postmortem: How to Train Your Wizard</a>
             </li>
         
     </ul>
@@ -153,69 +100,11 @@
         
     </ul>
     
-    <h2>Telnet</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2020-06-11">2020-06-11: Simple Systems Series Part 1: Telnet</a>
-            </li>
-        
-    </ul>
-    
-    <h2>Panerus</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2021-07-18">2021-07-18: Postmortem: Panerus</a>
-            </li>
-        
-    </ul>
-    
-    <h2>review</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2021-10-27">2021-10-27: Video Game Review: Littlewood</a>
-            </li>
-        
-            <li>
-                <a href="/post/2021-09-18">2021-09-18: Video Game Review: American Truck Simulator</a>
-            </li>
-        
-    </ul>
-    
-    <h2>git</h2>
+    <h2>O365</h2>
     <ul>
         
             <li>
                 <a href="/post/2018-04-10">2018-04-10: Python O365 Anxiety</a>
-            </li>
-        
-    </ul>
-    
-    <h2>systemd</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2020-05-28">2020-05-28: Python is Awesome</a>
-            </li>
-        
-    </ul>
-    
-    <h2>IoT</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2019-11-15">2019-11-15: Network Choker</a>
-            </li>
-        
-    </ul>
-    
-    <h2>CMSContent</h2>
-    <ul>
-        
-            <li>
-                <a href="/post/2021-10-26">2021-10-26: Postmortem: CMSContent</a>
             </li>
         
     </ul>
@@ -234,6 +123,64 @@
         
             <li>
                 <a href="/post/2020-06-04">2020-06-04: Simple Systems Series Part 0: Sockets</a>
+            </li>
+        
+    </ul>
+    
+    <h2>github</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2018-04-10">2018-04-10: Python O365 Anxiety</a>
+            </li>
+        
+    </ul>
+    
+    <h2>DNS</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2020-06-18">2020-06-18: Simple Systems Series Part 2: DNS</a>
+            </li>
+        
+    </ul>
+    
+    <h2>CMSContent</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2021-10-26">2021-10-26: Postmortem: CMSContent</a>
+            </li>
+        
+    </ul>
+    
+    <h2>Panerus</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2021-07-18">2021-07-18: Postmortem: Panerus</a>
+            </li>
+        
+    </ul>
+    
+    <h2>Website</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2018-01-30">2018-01-30: ITS Chili Cook Off</a>
+            </li>
+        
+            <li>
+                <a href="/post/2018-01-22">2018-01-22: Blog Introduction</a>
+            </li>
+        
+    </ul>
+    
+    <h2>systemd</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2020-05-28">2020-05-28: Python is Awesome</a>
             </li>
         
     </ul>
@@ -267,20 +214,20 @@
         
     </ul>
     
-    <h2>O365</h2>
+    <h2>Bento</h2>
     <ul>
         
             <li>
-                <a href="/post/2018-04-10">2018-04-10: Python O365 Anxiety</a>
+                <a href="/post/2021-07-25">2021-07-25: Postmortem: Bento</a>
             </li>
         
     </ul>
     
-    <h2>python</h2>
+    <h2>Privacy</h2>
     <ul>
         
             <li>
-                <a href="/post/2020-05-28">2020-05-28: Python is Awesome</a>
+                <a href="/post/2019-11-15">2019-11-15: Network Choker</a>
             </li>
         
     </ul>
@@ -294,6 +241,37 @@
         
     </ul>
     
+    <h2>video game</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2021-10-27">2021-10-27: Video Game Review: Littlewood</a>
+            </li>
+        
+            <li>
+                <a href="/post/2021-09-18">2021-09-18: Video Game Review: American Truck Simulator</a>
+            </li>
+        
+    </ul>
+    
+    <h2>python</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2020-05-28">2020-05-28: Python is Awesome</a>
+            </li>
+        
+    </ul>
+    
+    <h2>git</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2018-04-10">2018-04-10: Python O365 Anxiety</a>
+            </li>
+        
+    </ul>
+    
     <h2>HTTP</h2>
     <ul>
         
@@ -303,20 +281,42 @@
         
     </ul>
     
-    <h2>Bento</h2>
+    <h2>SMTP</h2>
     <ul>
         
             <li>
-                <a href="/post/2021-07-25">2021-07-25: Postmortem: Bento</a>
+                <a href="/post/2020-06-25">2020-06-25: Simple Systems Series Part 3: SMTP</a>
             </li>
         
     </ul>
     
-    <h2>Wizard</h2>
+    <h2>review</h2>
     <ul>
         
             <li>
-                <a href="/post/2021-08-28">2021-08-28: Postmortem: How to Train Your Wizard</a>
+                <a href="/post/2021-10-27">2021-10-27: Video Game Review: Littlewood</a>
+            </li>
+        
+            <li>
+                <a href="/post/2021-09-18">2021-09-18: Video Game Review: American Truck Simulator</a>
+            </li>
+        
+    </ul>
+    
+    <h2>Telnet</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2020-06-11">2020-06-11: Simple Systems Series Part 1: Telnet</a>
+            </li>
+        
+    </ul>
+    
+    <h2>IoT</h2>
+    <ul>
+        
+            <li>
+                <a href="/post/2019-11-15">2019-11-15: Network Choker</a>
             </li>
         
     </ul>

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file
 import os
 import json
+import markdown2
 from datetime import datetime
 
 def is_date(val):
@@ -23,6 +24,8 @@ for post in posts:
     post['tags'] = info['tags']
     all_tags.update(info['tags'])
 
+post_dict = {post['date']:post for post in posts}
+
 print(all_tags)
 
 @app.route('/')
@@ -41,7 +44,9 @@ def get_posts():
 
 @app.route('/post/<post_date>')
 def get_post(post_date):
-    pass
+    post = post_dict[post_date]
+    post['content_html'] = markdown2.markdown(post['content'])
+    return render_template('post.html',post=post_dict[post_date])
 
 @app.route('/tag')
 def get_tags():
