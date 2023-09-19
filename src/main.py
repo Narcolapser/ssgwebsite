@@ -5,7 +5,13 @@ app.config['FREEZER_DESTINATION'] = '../dist'
 
 @app.route('/')
 def root():
-    return 'hello world'
+    return render_template('index.html')
+
+@app.route("/static/<file_name>")
+def get_resource(file_name):
+    print(file_name)
+    return send_file("static/" + file_name)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
