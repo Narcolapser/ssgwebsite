@@ -1,6 +1,6 @@
 AUTHOR = 'Toben Archer'
 SITENAME = 'Studio Sleepy Giraffe'
-SITEURL = ''
+SITEURL = 'www.studiosleepygiraffe.com'
 
 PATH = 'content'
 
@@ -29,3 +29,5 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+#THEME
