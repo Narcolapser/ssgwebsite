@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Studio Sleepy Giraffe: A simple site for a silly man.</title>
+    <style>
+        :root {
+            --primary-color: #FFC107;
+            --accent-color: #536DFE;
+            --background-color: #212121;
+            --text-color: #BDBDBD;
+            --primary-dark: #FFA000;
+            --primary-light: #FFECB3;
+        }
+
+        @font-face {
+            font-family: 'Courier Prime';
+            src: url('/static/font/CourierPrime-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav a:link {
+            color: var(--accent-color); /* Unvisited link color */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        nav a:visited {
+            color: var(--primary-dark); /* Visited link color */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        hr {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <img src="/static/inverted_SSG.png">
+
+        <nav>
+            <h2>
+            <a href="/home.html">Home</a>
+            <a href="/post.html">Posts</a>
+            <a href="/tag.html">Tags</a>
+        </h2>
+        <hr/>
+        </nav>
+    </center>
+    <div class="content">
+        
+<h1>Welcome!</h1>
+<p>This website servers as my personal blog and otherwise dumping ground. It is intended for giving me the ability to share things with freinds and family mostly. Some day it may be more. But for now feel free to just take a look at what I have posted here over the years (and redesigns). The most recent thing you can find below.</p>
+
+    </div>
+</body>
+
+</html>

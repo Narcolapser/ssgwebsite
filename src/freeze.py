@@ -1,6 +1,7 @@
 from flask_frozen import Freezer
 from main import app
 import os
+import shutil
 
 from datetime import datetime
 
@@ -23,3 +24,4 @@ def get_post():
 
 if __name__ == '__main__':
     freezer.freeze()
+    shutil.copyfile('./dist/home.html','./dist/index.html')
