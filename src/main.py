@@ -32,7 +32,9 @@ print(all_tags)
 @app.route('/index.html')
 @app.route('/home.html')
 def root():
-    return render_template('index.html')
+    post = posts[0]
+    post['content_html'] = markdown2.markdown(post['content'])
+    return render_template('index.html', post=post)
 
 @app.route('/static/<file_name>')
 def get_resource(file_name):

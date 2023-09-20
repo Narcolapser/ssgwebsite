@@ -3,4 +3,26 @@
 {% block content %}
 <h1>Welcome!</h1>
 <p>This website servers as my personal blog and otherwise dumping ground. It is intended for giving me the ability to share things with freinds and family mostly. Some day it may be more. But for now feel free to just take a look at what I have posted here over the years (and redesigns). The most recent thing you can find below.</p>
+
+<h1>{{ post.title }}</h1>
+<h3>Publish Date: {{ post.date }}</h3>
+{% if post.files %}
+    <h3>Supplemental files</h3>
+    <ul>
+    {% for f in post.files %}
+        <li><a href="/static/{{post.date}}/{{f}}">{{f}}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% if post.tags %}
+    <h3>Tags</h3>
+    <ul>
+    {% for tag in post.tags %}
+        <li>{{tag}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<div class="post-content">
+    {{ post.content_html|safe }} {# Use |safe to render HTML #}
+</div>
 {% endblock %}
