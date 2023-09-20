@@ -22,6 +22,7 @@ for post in posts:
     info = json.load(open(f'/home/toby/Code/ssg-blog/{post["date"]}/info.json'))
     post['title'] = info['title']
     post['tags'] = info['tags']
+    post['files'] = info['files'] if 'files' in info else None
     all_tags.update(info['tags'])
 
 post_dict = {post['date']:post for post in posts}
@@ -37,6 +38,16 @@ def root():
 def get_resource(file_name):
     print(file_name)
     return send_file("static/" + file_name)
+
+@app.route('/static/<post>/<file_name>')
+def get_blog_file(post, file_name):
+    print(file_name)
+    print(post)
+
+    if post == 'font':
+        return send_file(f'static/font/{file_name}')
+    else:
+        return send_file(f'/home/toby/Code/ssg-blog/{post}/{file_name}')
 
 @app.route('/post.html')
 def get_posts():
@@ -59,8 +70,6 @@ def get_tags():
             tag_collections[tag].append({'date':post['date'], 'title': post['title']})
                 
     return render_template('tags.html',tags=tag_collections)
-        
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
