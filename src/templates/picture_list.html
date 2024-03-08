@@ -1,0 +1,4 @@
+<title>Toby and Megan's minecraft homestead pictures</title>
+{% for picture in pictures%}
+<a href="/homesteading/{{picture[0:3]}}">{{ picture }}</a><br/>
+{% endfor %}

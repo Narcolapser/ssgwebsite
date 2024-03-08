@@ -7,6 +7,9 @@ from datetime import datetime
 
 freezer = Freezer(app)
 
+ssg_blog_path = '/home/toby/Code/ssg-blog'
+ssg_blog_path = '/Users/toby/Code/ssg-blog'
+
 def is_date(val):
     try:
         datetime.strptime(val,'%Y-%m-%d')
@@ -14,12 +17,12 @@ def is_date(val):
     except:
         return False
 
-posts = [{'date':post} for post in os.listdir('/home/toby/Code/ssg-blog') if is_date(post)]
+posts = [{'date':post} for post in os.listdir(f'{ssg_blog_path}') if is_date(post)]
 posts = sorted(posts, key=lambda x: x['date'], reverse=True)
 all_tags = set()
 for post in posts:
     #post['content'] = open(f'/home/toby/Code/ssg-blog/{post["date"]}/post.md').read()
-    info = json.load(open(f'/home/toby/Code/ssg-blog/{post["date"]}/info.json'))
+    info = json.load(open(f'{ssg_blog_path}/{post["date"]}/info.json'))
     post['title'] = info['title']
     post['tags'] = info['tags']
     post['files'] = info['files'] if 'files' in info else None

@@ -14,12 +14,15 @@ def is_date(val):
 app = Flask(__name__)
 app.config['FREEZER_DESTINATION'] = '../dist'
 
-posts = [{'date':post} for post in os.listdir('/home/toby/Code/ssg-blog') if is_date(post)]
+ssg_blog_path = '/home/toby/Code/ssg-blog'
+ssg_blog_path = '/Users/toby/Code/ssg-blog'
+
+posts = [{'date':post} for post in os.listdir(ssg_blog_path) if is_date(post)]
 posts = sorted(posts, key=lambda x: x['date'], reverse=True)
 all_tags = set()
 for post in posts:
-    post['content'] = open(f'/home/toby/Code/ssg-blog/{post["date"]}/post.md').read()
-    info = json.load(open(f'/home/toby/Code/ssg-blog/{post["date"]}/info.json'))
+    post['content'] = open(f'{ssg_blog_path}/{post["date"]}/post.md').read()
+    info = json.load(open(f'{ssg_blog_path}/{post["date"]}/info.json'))
     post['title'] = info['title']
     post['tags'] = info['tags']
     post['files'] = info['files'] if 'files' in info else None
@@ -49,7 +52,7 @@ def get_blog_file(post, file_name):
     if post == 'font':
         return send_file(f'static/font/{file_name}')
     else:
-        return send_file(f'/home/toby/Code/ssg-blog/{post}/{file_name}')
+        return send_file(f'{ssg_blog_path}/{post}/{file_name}')
 
 @app.route('/post.html')
 def get_posts():
@@ -72,6 +75,30 @@ def get_tags():
             tag_collections[tag].append({'date':post['date'], 'title': post['title']})
                 
     return render_template('tags.html',tags=tag_collections)
+
+@app.route('/homesteading.html')
+def get_homestead_root():
+    pictures = os.listdir('./static/homestead')
+    pictures.sort()
+    return render_template('picture_list.html',pictures=pictures)
+
+@app.route('/homesteading/<picture_id>')
+def get_homestead_picture(picture_id):
+    if '.png' in picture_id:
+        print('fetching actual picture')
+        return send_file(f'static/homestead/{picture_id}')
+    else: 
+        pictures = os.listdir('./static/homestead')
+        pictures.sort()
+        pictures_by_id = {picture[0:3]:picture for picture in pictures}
+        picture = pictures_by_id[picture_id]
+        index = pictures.index(picture)
+        previous_index = index - 1 if index > 0 else len(pictures)-1
+        next_index = index + 1 if index < len(pictures) else 0
+        previous_picture = pictures[previous_index][0:3]
+        next_picture = pictures[next_index][0:3]
+        return render_template('picture.html',picture=picture,np=next_picture,pp=previous_picture)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
