@@ -48,4 +48,4 @@ def get_blog_file():
 
 if __name__ == '__main__':
     freezer.freeze()
-    shutil.copyfile('./dist/home.html','./dist/index.html')
+    shutil.copyfile('../dist/home.html','../dist/index.html')

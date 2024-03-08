@@ -51,6 +51,8 @@ def get_blog_file(post, file_name):
 
     if post == 'font':
         return send_file(f'static/font/{file_name}')
+    elif post == 'homestead':
+        return send_file(f'static/homestead/{file_name}')
     else:
         return send_file(f'{ssg_blog_path}/{post}/{file_name}')
 
