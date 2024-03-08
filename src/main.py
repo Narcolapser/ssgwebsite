@@ -89,14 +89,14 @@ def get_homestead_picture(picture_id):
     if '.png' in picture_id:
         print('fetching actual picture')
         return send_file(f'static/homestead/{picture_id}')
-    else: 
+    else:
         pictures = os.listdir('./static/homestead')
         pictures.sort()
         pictures_by_id = {picture[0:3]:picture for picture in pictures}
-        picture = pictures_by_id[picture_id]
+        picture = pictures_by_id[picture_id[0:3]]
         index = pictures.index(picture)
         previous_index = index - 1 if index > 0 else len(pictures)-1
-        next_index = index + 1 if index < len(pictures) else 0
+        next_index = index + 1 if index < len(pictures)-1 else 0
         previous_picture = pictures[previous_index][0:3]
         next_picture = pictures[next_index][0:3]
         return render_template('picture.html',picture=picture,np=next_picture,pp=previous_picture)
