@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Studio Sleepy Giraffe: A simple site for a silly man.</title>
+    <style>
+        :root {
+            --primary-color: #FFC107;
+            --accent-color: #536DFE;
+            --background-color: #212121;
+            --text-color: #BDBDBD;
+            --primary-dark: #FFA000;
+            --primary-light: #FFECB3;
+        }
+
+        @font-face {
+            font-family: 'Courier Prime';
+            src: url('/static/font/CourierPrime-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        a:link {
+            color: var(--accent-color); /* Unvisited link color */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        a:visited {
+            color: var(--primary-dark); /* Visited link color */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        hr {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <img src="/static/inverted_SSG.png">
+
+        <nav>
+            <h2>
+            <a href="/home.html">Home</a>
+            <a href="/post.html">Posts</a>
+            <a href="/tag.html">Tags</a>
+        </h2>
+        <hr/>
+        </nav>
+    </center>
+    <div class="content">
+        
+    <h1>Postmortem: Ride on Car Stereo</h1>
+    <h3>Publish Date: 2024-10-21</h3>
+    
+    
+        <h3>Tags</h3>
+        <ul>
+        
+            <li>Postmortem</li>
+        
+            <li>Electronics-Project</li>
+        
+        </ul>
+    
+    <div class="post-content">
+        <h1>Postmortem: Ride on Car Stereo</h1>
+
+<p>My most recent project was for my daughter's little ride on car. Her car came with a headphone jack into which one could plug in a phone and it would play music. Kind of a cool feature but it readily became clear that it was next to worthless. There were a couple reasons for this:</p>
+
+<ol>
+<li>I had to put my phone into the car. So I couldn't use my phone to, say, take a picture of her driving while she was listening to the music.</li>
+<li>Because it was my phone, it meant that I was the one controlling the music.</li>
+<li>While plugging in one's phone was not a difficult task, coupled with the above two it was just enough of a bother with a small enough payoff that we just didn't do it all that often.</li>
+<li>Thanks apple. I do not have an iPhone, but because they decided to drop the headphone jack, my current phone also lacks a headphone jack.
+minor quible: the cord they sent with the car was about an inch to short, the phone dangled pricariously an inch above the floor of the car instead of resting gently on the bottom.</li>
+</ol>
+
+<p>So I set out to make something to address all of these issues. I set out to create something that:
+1. Had buttons in the car for easiest possible use.
+2. Did not depend in anyway on my phone.
+3. Could have the music changed.</p>
+
+<h2>Electronic Design</h2>
+
+<p>My first thought was to do something with an ESP8266. I thought maybe I could do a MIDI file, but alas doing such was not easy. I could make a little ringtone sort of output, but that would only allow for a single pitch at a time. I liked this idea at first because I could use ESPHome to do updates. But my daughter rejected the idea due to the sound quality, I didn't blame her.</p>
+
+<p>I asked about this in the ESPHome subreddit and got suggested a DF Mini player. This is a fantastic little device that takes away a lot of the complicated work of doing MP3 projects. It's a postage stamp sized embedded MP3 player. I picked up a pack of 3 and started toying with them. They have a lot of cool abilities, I could still have an ESP8266 control the device and have it simply be the music player part of the setup. But I decided on something even simplier. If you ground the two IO pins on the DF Mini they function as next and back buttons. Super simple. I proofed this out on a bread board and de-soldered the speaker from the toy car to verify that everything worked. It worked great. That settles the electronic design portion of this project, but honestly that's not interesting part of this project.</p>
+
+<h2>OpenSCAD, CADQuery, and FreeCAD</h2>
+
+<p>Where this project was really interesting was the mechanical design. This was my first major project in CADQuery. After my efforts in OpenSCAD left me feel disappointed in the language I was pleased to discover CADQuery. My main beef with OpenSCAD is that it should not be a language. It should be a library. This was when I first realized that, at least in the modern sense, a lot of what defines a language, and espectially it's success, are it's ecosystem and tools. I think I only ever once got a module from the internet to load in an OpenSCAD project of mine; package management just wasn't there. The language had a lot of idosyncracies. What language doesn't, but because it was a language all it's own that means IDE support is limited basically to just the official IDE, which also had it's own problems (what IDE doesn't).</p>
+
+<p>All in all I went into OpenSCAD with excitement. I did a number of proejcts with it but any time things got complex it became a pain in the neck to work with. Enter CADQuery. CADQuery is a python library. Though to my dismay I never did manage to get it to work without the IDE. I'm sure it can be done but I never managed it. IDE aside, I did enjoy being able to just write normal python with all the normal python control structures and norms. But by the end of it I was becoming Jaded by the concept of imparative design entirely. While I appreciate the ability to put logic into my designs I found myself longing for constraints again. While FreeCAD has it's own problems, when I tell it that the outer edge of circle A should be exactly 78.6mm apart, I can depend on that staying true (foreshadowing). Constructing something imparitively is very powerful, but I found it to be a very error prone process and not a natural fit to what I was trying to do. My next project I'm going back to FreeCAD and see if constraints are as nice as I remember. There's got to be a reason why it's what the expensive tools use.</p>
+
+<h2>Mechanical Design</h2>
+
+<p>There were two main components to the mechanical design, the face plate and the buttons. There is not much to say about the face plate other than it took some fiddling and deep thinking to get the design right. There are two clips on the back of the plate to hold it in the car. These took some tweaking to get right with out them just snapping off. However, when I first started tweaking them I clearly had the logic wrong because my plate went from being 78.6mm wide to ~80mm wide. Imparative construction takes a lot of careful thought. But once I got that logic sorted boy was it beautiful to see.</p>
+
+<p>Much more interesting were the buttons. I designed these buttons, as I have done with a number of other projects, to be the one design to rule them all. I would be able to tweak just a few settings and it would generate a physical button suitable to my needs. It really did work but took some doing to get there. The basic design consisted of 2 parts. The cap and the base. Interally I imagined each of these in two separate parts of their own. The cap had the cover and the legs, and the base had the caddy and the shaft. The objective here was to create a design that would hole those momentary switch you can get for 100 for $5 online. The caddy was meant to be the physical interface between these buttons and the rest of the project. It had 4 slabs that would hold the button and let its little legs go through behind it. It also had 2 holes where one could put 3m screws. Attached to the caddy was the shaft which would extend through the face place of whatever object you put the button into. The cap then had a cover that would go over the button and make physical contact with the button and 4 legs that would pass through the caddy to the backside of the button. This design took me quite a while to tweak until it worked correctly but once I did it was oh so satisfying.</p>
+
+<p>I originally had in mind that the button cap would have little latches on it's legs, but these proved difficult to print well. The legs them selves had to be very thing in order for that design to work and they were breaking easily. Then I realized I could simply deform the legs with my soldering iron. This worked very well. So well I ended up skipping the 3m screws for attaching the caddy. Instead the holds had matching pegs on the face plate that you melted together to hold it all together. While I'm typically a fan of being able to take it a part and put it back together again, the buttons are so easy to print that this approach seemed acceptable to me.</p>
+
+<h2>Assembly</h2>
+
+<p>Once I got it all designed and printed it was time to put it all together. After about 3 attempts to do custom PCBs I realized that most of the time perfboard works. Yea, it's not as pretty, but it's cheap and available and the turn around time is much faster. And in this case a custom PCB would have been over kill. I have a buck convert that would adapt the 6-7v DC down to a safe 4.5-5v DC for the DF Mini. I put a pin on the car's built in speaker and plugged everything into the perfboard. Heck, the perf board is probably also over kill by the time I trimed everything down. I tested it all on my desktop and then headed out to the garage. Put the car up on the "lift" (a pair of saw horses) and began working. Tested the voltage on the buck converter connected to the car's battery. I would have gotten a picture of it saying 5v but I couldn't be bothered to go get the aligator clips. Next I tweaked the trimming pot to set the volume. And of course as I installed the face plate a clip brock off. This ended up being a blessing in disguise as it allowed me to pull out the internals and tweak them several more times and will allow easy access to the SD card to replacing the songs. The next day little girl got to try it. She's... not great at staged pictures but I assure you despite the expression on her face, she loved it. </p>
+
+<h2>Final Thoughts</h2>
+
+<p>I've already got my rant out of the way in the section about the CAD software. Beyond that this was also a reminder in keeping things simple. I had originally designed the face plate to hold onto the DF mini and the buck converter. This would have been neat, but entirely unnecessary (and the existing wires may not have even allowed for it). And it did end up giving the project much more flexibility. I also originally designed the face plate to have four buttons. Three for songs and one for stop. But turns out you can just power cycle the car to turn the stereo off and "next" and "back" work great when you only have 3 songs. Keep it simple. Partly also because the simpler I make it, the more projects I can accomplish. That's certainly a perk.</p>
+ 
+    </div>
+
+    </div>
+</body>
+
+</html>
