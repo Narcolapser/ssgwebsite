@@ -62,77 +62,64 @@
 <h1>Welcome!</h1>
 <p>This website servers as my personal blog and otherwise dumping ground. It is intended for giving me the ability to share things with freinds and family mostly. Some day it may be more. But for now feel free to just take a look at what I have posted here over the years (and redesigns). The most recent thing you can find below.</p>
 
-<h1>Video Game Review: Littlewood</h1>
-<h3>Publish Date: 2021-10-27</h3>
+<h1>Postmortem: Ride on Car Stereo</h1>
+<h3>Publish Date: 2024-10-21</h3>
 
 
     <h3>Tags</h3>
     <ul>
     
-        <li>video game</li>
+        <li>Postmortem</li>
     
-        <li>review</li>
+        <li>Electronics-Project</li>
     
     </ul>
 
 <div class="post-content">
-    <h1>Video Game Review: Littlewood</h1>
+    <h1>Postmortem: Ride on Car Stereo</h1>
 
-<p>I first heard Littlewood described as "Stardew Crossing" and though "hey, I'd enjoy that!" The premise of the great battle of good and evil is over, it's time to rebuild, is an idea I have had before and I always like to see my ideas made real with no effort on my part. So when I saw it I was happy enough to jump on it as something I knew I'd love. </p>
+<p>My most recent project was for my daughter's little ride on car. Her car came with a headphone jack into which one could plug in a phone and it would play music. Kind of a cool feature but it readily became clear that it was next to worthless. There were a couple reasons for this:</p>
 
-<h2>Good things</h2>
+<ol>
+<li>I had to put my phone into the car. So I couldn't use my phone to, say, take a picture of her driving while she was listening to the music.</li>
+<li>Because it was my phone, it meant that I was the one controlling the music.</li>
+<li>While plugging in one's phone was not a difficult task, coupled with the above two it was just enough of a bother with a small enough payoff that we just didn't do it all that often.</li>
+<li>Thanks apple. I do not have an iPhone, but because they decided to drop the headphone jack, my current phone also lacks a headphone jack.
+minor quible: the cord they sent with the car was about an inch to short, the phone dangled pricariously an inch above the floor of the car instead of resting gently on the bottom.</li>
+</ol>
 
-<h3>Peaceful</h3>
+<p>So I set out to make something to address all of these issues. I set out to create something that:
+1. Had buttons in the car for easiest possible use.
+2. Did not depend in anyway on my phone.
+3. Could have the music changed.</p>
 
-<p>I love the original harvest moon and many of the derivitives. I also greatly enjoyed Stardew Valley and plan to replay it. However the combat in the later harvest moons, and Stardew Valley I found to be an annoying little side thing and not adding much of interest. While I'm sure I'm over stating that as certain parts of SdV are indeed made interesting by the presence of hostile mobs, the fact that there is <em>no</em> combat in littlewood is kind of refreshing. Not to say there isn't adversity in certain locations. Both the mines and the enchanted wood contain mobs of some sort that provide a little bit of interest in these locations. But you cannot attack them for the most part. Meaning these could be environmental just as easily as they are monsters. As a result this game has a very hard focus on "chill" and being peaceful and relaxing. Litltewood may never have your heart racing, but that is totally the point.</p>
+<h2>Electronic Design</h2>
 
-<h3>Reasons for furniture in people's houses</h3>
+<p>My first thought was to do something with an ESP8266. I thought maybe I could do a MIDI file, but alas doing such was not easy. I could make a little ringtone sort of output, but that would only allow for a single pitch at a time. I liked this idea at first because I could use ESPHome to do updates. But my daughter rejected the idea due to the sound quality, I didn't blame her.</p>
 
-<p>With a lot of games, like Terraria, there is rarely a reason for decorating people's homes. Littlewood managed to provide good motivation for decorating people's homes. Each NPC has a set of requests in three tiers, each tier consisting of 5 requests. This results in 15 objects or constraints that you get to arrange in and around their house. Some are items like a specific bed, others are locations like being near some one's house or a certain building. It adds a lot to the game both for how you decorate people's houses and how you layout your town.</p>
+<p>I asked about this in the ESPHome subreddit and got suggested a DF Mini player. This is a fantastic little device that takes away a lot of the complicated work of doing MP3 projects. It's a postage stamp sized embedded MP3 player. I picked up a pack of 3 and started toying with them. They have a lot of cool abilities, I could still have an ESP8266 control the device and have it simply be the music player part of the setup. But I decided on something even simplier. If you ground the two IO pins on the DF Mini they function as next and back buttons. Super simple. I proofed this out on a bread board and de-soldered the speaker from the toy car to verify that everything worked. It worked great. That settles the electronic design portion of this project, but honestly that's not interesting part of this project.</p>
 
-<h3>Stamina Alone</h3>
+<h2>OpenSCAD, CADQuery, and FreeCAD</h2>
 
-<p>Unlike the Harvest Moon decendents Littlewood does not have stamina and time, rather it has just stamina, which dictates the time of day. This is nice because it means you can make as many trips as you one to various locations because you forgot an item or something. It goes well with the games "chill" design goal. And it means you rarely miss an event due to time of day, as the time of day is entirely dependant on your stamina usage, so you just need to make a note of how much stamina you need to use before your event. </p>
+<p>Where this project was really interesting was the mechanical design. This was my first major project in CADQuery. After my efforts in OpenSCAD left me feel disappointed in the language I was pleased to discover CADQuery. My main beef with OpenSCAD is that it should not be a language. It should be a library. This was when I first realized that, at least in the modern sense, a lot of what defines a language, and espectially it's success, are it's ecosystem and tools. I think I only ever once got a module from the internet to load in an OpenSCAD project of mine; package management just wasn't there. The language had a lot of idosyncracies. What language doesn't, but because it was a language all it's own that means IDE support is limited basically to just the official IDE, which also had it's own problems (what IDE doesn't).</p>
 
-<h3>Hanging out with Friends</h3>
+<p>All in all I went into OpenSCAD with excitement. I did a number of proejcts with it but any time things got complex it became a pain in the neck to work with. Enter CADQuery. CADQuery is a python library. Though to my dismay I never did manage to get it to work without the IDE. I'm sure it can be done but I never managed it. IDE aside, I did enjoy being able to just write normal python with all the normal python control structures and norms. But by the end of it I was becoming Jaded by the concept of imparative design entirely. While I appreciate the ability to put logic into my designs I found myself longing for constraints again. While FreeCAD has it's own problems, when I tell it that the outer edge of circle A should be exactly 78.6mm apart, I can depend on that staying true (foreshadowing). Constructing something imparitively is very powerful, but I found it to be a very error prone process and not a natural fit to what I was trying to do. My next project I'm going back to FreeCAD and see if constraints are as nice as I remember. There's got to be a reason why it's what the expensive tools use.</p>
 
-<p>A neat mechanic that they haven't explored much is the ability to ask a friend to hang out. When you ask a friend to hang out they follow you around until you go to bed (awkwardly abandoning them in your house) or until you dismiss them. In practicality it's just a way to curry favor. I would love to see this mechanic explored more. Perhaps certain locations are only open if you are hanging out with a friend. NPCs say different things if you are hanging out with some one. Things like that. </p>
+<h2>Mechanical Design</h2>
 
-<h3>Market</h3>
+<p>There were two main components to the mechanical design, the face plate and the buttons. There is not much to say about the face plate other than it took some fiddling and deep thinking to get the design right. There are two clips on the back of the plate to hold it in the car. These took some tweaking to get right with out them just snapping off. However, when I first started tweaking them I clearly had the logic wrong because my plate went from being 78.6mm wide to ~80mm wide. Imparative construction takes a lot of careful thought. But once I got that logic sorted boy was it beautiful to see.</p>
 
-<p>Better than the generic box in the Harvest moon game, Littlewood had a market in which you could slowly sell 8-24 items a day. This means you can't just dump a massive harvest all at once. </p>
+<p>Much more interesting were the buttons. I designed these buttons, as I have done with a number of other projects, to be the one design to rule them all. I would be able to tweak just a few settings and it would generate a physical button suitable to my needs. It really did work but took some doing to get there. The basic design consisted of 2 parts. The cap and the base. Interally I imagined each of these in two separate parts of their own. The cap had the cover and the legs, and the base had the caddy and the shaft. The objective here was to create a design that would hole those momentary switch you can get for 100 for $5 online. The caddy was meant to be the physical interface between these buttons and the rest of the project. It had 4 slabs that would hold the button and let its little legs go through behind it. It also had 2 holes where one could put 3m screws. Attached to the caddy was the shaft which would extend through the face place of whatever object you put the button into. The cap then had a cover that would go over the button and make physical contact with the button and 4 legs that would pass through the caddy to the backside of the button. This design took me quite a while to tweak until it worked correctly but once I did it was oh so satisfying.</p>
 
-<h2>Improvable things</h2>
+<p>I originally had in mind that the button cap would have little latches on it's legs, but these proved difficult to print well. The legs them selves had to be very thing in order for that design to work and they were breaking easily. Then I realized I could simply deform the legs with my soldering iron. This worked very well. So well I ended up skipping the 3m screws for attaching the caddy. Instead the holds had matching pegs on the face plate that you melted together to hold it all together. While I'm typically a fan of being able to take it a part and put it back together again, the buttons are so easy to print that this approach seemed acceptable to me.</p>
 
-<h3>Inconsequential re-arraging</h3>
+<h2>Assembly</h2>
 
-<p>When I design things in minecraft I have to be careful about what I do because it is a lot of work to move a building in minecraft. You basically have to rebuild the entire thing. In Littlewood you can re-arrange things at will. I understand that a lot of games have this, and I am disappointed with how easy it is to do in Stardew Valley. It encourages you to try things and see how it will work. But with low consequnce can come low meaning. I didn't really bother really thinking about the arragnement of things because it was easy enough to just move it later if I changed my mind. </p>
+<p>Once I got it all designed and printed it was time to put it all together. After about 3 attempts to do custom PCBs I realized that most of the time perfboard works. Yea, it's not as pretty, but it's cheap and available and the turn around time is much faster. And in this case a custom PCB would have been over kill. I have a buck convert that would adapt the 6-7v DC down to a safe 4.5-5v DC for the DF Mini. I put a pin on the car's built in speaker and plugged everything into the perfboard. Heck, the perf board is probably also over kill by the time I trimed everything down. I tested it all on my desktop and then headed out to the garage. Put the car up on the "lift" (a pair of saw horses) and began working. Tested the voltage on the buck converter connected to the car's battery. I would have gotten a picture of it saying 5v but I couldn't be bothered to go get the aligator clips. Next I tweaked the trimming pot to set the volume. And of course as I installed the face plate a clip brock off. This ended up being a blessing in disguise as it allowed me to pull out the internals and tweak them several more times and will allow easy access to the SD card to replacing the songs. The next day little girl got to try it. She's... not great at staged pictures but I assure you despite the expression on her face, she loved it. </p>
 
-<p>This is notable with houses, but most notable with plants like trees. There are some trees that grow, but the fruit tress plant and immediately producing fruit. Trees that have grown already can be moved without loosing their growth. For my taste it is just to easy, but that is entirely subjective.</p>
+<h2>Final Thoughts</h2>
 
-<h3>Arbitrary limits on objects</h3>
-
-<p>For purely gameification reasons you can only have x number of items like crops and fruit trees. You can increase the number with policy changes in the town hall, but that just highlights the gameification to me. This is probably the Harvest Moon player in me balking, I've not actually played animal crossing so maybe this is the norm there. It just seemed annoying to me.</p>
-
-<h3>No modding support (yet)</h3>
-
-<p>A lot of the things I am complaining about in this post are personal flavors. I'd rather play in a slightly different way. These could be aliviated by having modding support. I have done like wise in Stardew Valley, increased the difficult in some way and in other ways made it easier. There is no modding support for this game and there doesn't appear to be plans to include such so far as I can tell. I understand that small team like SmashGames only has so much time to work on things. But modding support adds a lot to a game, it shouldn't be an afterthought. It is literally free content for your game.</p>
-
-<h3>Stamina Alone</h3>
-
-<p>As much as I like the lack of time separate from stamina in this game, it does change a lot of the character of the game. There were regularly times in the game where I would go to the lumber mill and spend the entire day, several days in a row, making lumber. My day would just zip by in an instant. In a game like Harvest moon if you burn your stamina immediately you would be incentivized to go out into town and talk to people and forage or something. Inversely if you wanted to save stamina for the end of the day for some reason you could in Harvest Moon, again not so in Little wood. You are always tired in the evening because the evening comes when you are tired.</p>
-
-<h3>Predictable woods</h3>
-
-<p>Littlewood's enchanted forest and mine suffer from the minecraft problem. The fact that everything is random means nothing matters. Every visit to the forest is different, but none of them are notable. This made the forest and the mine honestly quite boring. If it were me I would have made a forest that is just a little to big to explore all of it but with the possibility out there. This would encourage the exploration to find all of the potentially predetermined item drops in the forest. It would be nice also if the other locations on the world map were not available for fast travel until you've worked you way to them via the forest. </p>
-
-<h3>No inventory management</h3>
-
-<p>Your inventory is unlimited in this game. This means I never had to care what was in it. Which meant I never knew what was in my inventory. I just had everything which also meant I could horde everything, again meaning that getting items was relatively meaningless. When you are forced to decide whether or to chuck an item because you are out of inventory space it forces you to decide what items are worth having. </p>
-
-<h2>Conclusion</h2>
-
-<p>Overall I liked Littlewood but I walked away feeling like it was unfulfilled. I feeling I have certainly had with many of the games I have tried to make. So I'm certainly far from being able to say with authority what's wrong, but I know I can feel that there is something a miss. We'll see how it looks in a year or two since basically all games get constant updates these days. They have a great base, I'd love to see it expanded just a little more. I'd like to see more challenge, but again, that's more my flavor, the whole point of this game is that it's relaxing, not challenging.</p>
+<p>I've already got my rant out of the way in the section about the CAD software. Beyond that this was also a reminder in keeping things simple. I had originally designed the face plate to hold onto the DF mini and the buck converter. This would have been neat, but entirely unnecessary (and the existing wires may not have even allowed for it). And it did end up giving the project much more flexibility. I also originally designed the face plate to have four buttons. Three for songs and one for stop. But turns out you can just power cycle the car to turn the stereo off and "next" and "back" work great when you only have 3 songs. Keep it simple. Partly also because the simpler I make it, the more projects I can accomplish. That's certainly a perk.</p>
  
 </div>
 

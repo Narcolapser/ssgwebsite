@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config['FREEZER_DESTINATION'] = '../dist'
 
 ssg_blog_path = '/home/toby/Code/ssg-blog'
-ssg_blog_path = '/Users/toby/Code/ssg-blog'
+#ssg_blog_path = '/Users/toby/Code/ssg-blog'
 
 posts = [{'date':post} for post in os.listdir(ssg_blog_path) if is_date(post)]
 posts = sorted(posts, key=lambda x: x['date'], reverse=True)
@@ -80,7 +80,7 @@ def get_tags():
 
 @app.route('/homesteading.html')
 def get_homestead_root():
-    pictures = os.listdir('./static/homestead')
+    pictures = os.listdir('./src/static/homestead')
     pictures.sort()
     return render_template('picture_list.html',pictures=pictures)
 
@@ -88,9 +88,9 @@ def get_homestead_root():
 def get_homestead_picture(picture_id):
     if '.png' in picture_id:
         print('fetching actual picture')
-        return send_file(f'static/homestead/{picture_id}')
+        return send_file(f'./src/static/homestead/{picture_id}')
     else:
-        pictures = os.listdir('./static/homestead')
+        pictures = os.listdir('./src/static/homestead')
         pictures.sort()
         pictures_by_id = {picture[0:3]:picture for picture in pictures}
         picture = pictures_by_id[picture_id[0:3]]

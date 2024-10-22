@@ -8,7 +8,7 @@ from datetime import datetime
 freezer = Freezer(app)
 
 ssg_blog_path = '/home/toby/Code/ssg-blog'
-ssg_blog_path = '/Users/toby/Code/ssg-blog'
+#ssg_blog_path = '/Users/toby/Code/ssg-blog'
 
 def is_date(val):
     try:
@@ -48,11 +48,11 @@ def get_blog_file():
 
 @freezer.register_generator
 def get_homestead_picture():
-    pictures = os.listdir('./static/homestead')
+    pictures = os.listdir('./src/static/homestead')
     for picture in pictures:
         print(f'generating {picture} route')
         yield {'picture_id':f'{picture[0:3]}.html'}
 
 if __name__ == '__main__':
     freezer.freeze()
-    shutil.copyfile('../dist/home.html','../dist/index.html')
+    shutil.copyfile('./dist/home.html','./dist/index.html')
