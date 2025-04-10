@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 import os
+from pathlib import Path
 import json
 import markdown2
 from datetime import datetime
@@ -26,6 +27,8 @@ for post in posts:
     post['title'] = info['title']
     post['tags'] = info['tags']
     post['files'] = info['files'] if 'files' in info else None
+    cover_path = Path(f'{ssg_blog_path}/{post["date"]}/cover.jpg')
+    post['cover'] = cover_path.exists()
     all_tags.update(info['tags'])
 
 post_dict = {post['date']:post for post in posts}
@@ -34,6 +37,7 @@ print(all_tags)
 
 @app.route('/index.html')
 @app.route('/home.html')
+@app.route('/')
 def root():
     post = posts[0]
     post['content_html'] = markdown2.markdown(post['content'])

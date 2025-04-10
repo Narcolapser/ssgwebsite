@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% if post.cover %}
+        <div style="text-align: center;">
+            <img src="/static/{{ post.date }}/cover.jpg" alt="Cover Image" style="width: 50%; height: auto;" />
+        </div>
+    {% endif %}
     <h1>{{ post.title }}</h1>
     <h3>Publish Date: {{ post.date }}</h3>
     {% if post.files %}
         <h3>Supplemental files</h3>
         <ul>
         {% for f in post.files %}
-            <li><a href="/static/{{post.date}}/{{f}}">{{f}}</a></li>
+            <li><a href="/static/{{ post.date }}/{{ f }}">{{ f }}</a></li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -15,7 +20,7 @@
         <h3>Tags</h3>
         <ul>
         {% for tag in post.tags %}
-            <li>{{tag}}</li>
+            <li>{{ tag }}</li>
         {% endfor %}
         </ul>
     {% endif %}
