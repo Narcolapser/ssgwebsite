@@ -46,13 +46,6 @@ def get_blog_file():
         for file_name in post['files']:
             yield {'post':post['date'],'file_name':file_name}
 
-@freezer.register_generator
-def get_homestead_picture():
-    pictures = os.listdir('./src/static/homestead')
-    for picture in pictures:
-        print(f'generating {picture} route')
-        yield {'picture_id':f'{picture[0:3]}.html'}
-
 if __name__ == '__main__':
     freezer.freeze()
     shutil.copyfile('./dist/home.html','./dist/index.html')
