@@ -2,6 +2,7 @@ from flask_frozen import Freezer
 from main import app
 import os
 import shutil
+from pathlib import Path
 import json
 from datetime import datetime
 
@@ -26,6 +27,8 @@ for post in posts:
     post['title'] = info['title']
     post['tags'] = info['tags']
     post['files'] = info['files'] if 'files' in info else None
+    cover_path = Path(f'{ssg_blog_path}/{post["date"]}/cover.jpg')
+    post['cover'] = cover_path.exists()
     all_tags.update(info['tags'])
 
 post_dict = {post['date']:post for post in posts}
@@ -41,10 +44,16 @@ def get_post():
 def get_blog_file():
     for post in posts:
         print(post)
+        if post['cover']:
+            print(f'post: {post["date"]} has a cover. adding it:')
+            print({'post':post['date'],'file_name':'cover.jpg'})
+            yield {'post':post['date'],'file_name':'cover.jpg'}
+            
         if not post['files']:
             continue
         for file_name in post['files']:
             yield {'post':post['date'],'file_name':file_name}
+        
 
 if __name__ == '__main__':
     freezer.freeze()
