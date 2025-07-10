@@ -62,64 +62,139 @@
 <h1>Welcome!</h1>
 <p>This website servers as my personal blog and otherwise dumping ground. It is intended for giving me the ability to share things with freinds and family mostly. Some day it may be more. But for now feel free to just take a look at what I have posted here over the years (and redesigns). The most recent thing you can find below.</p>
 
-<h1>Postmortem: Ride on Car Stereo</h1>
-<h3>Publish Date: 2024-10-21</h3>
+<h1>You and your body should both be a Father Figure.</h1>
+<h3>Publish Date: 2025-06-29</h3>
 
 
     <h3>Tags</h3>
     <ul>
     
-        <li>Postmortem</li>
-    
-        <li>Electronics-Project</li>
+        <li>philosophy</li>
     
     </ul>
 
 <div class="post-content">
-    <h1>Postmortem: Ride on Car Stereo</h1>
+    <h1>Father Figure</h1>
 
-<p>My most recent project was for my daughter's little ride on car. Her car came with a headphone jack into which one could plug in a phone and it would play music. Kind of a cool feature but it readily became clear that it was next to worthless. There were a couple reasons for this:</p>
+<p>There’s an old joke:</p>
 
-<ol>
-<li>I had to put my phone into the car. So I couldn't use my phone to, say, take a picture of her driving while she was listening to the music.</li>
-<li>Because it was my phone, it meant that I was the one controlling the music.</li>
-<li>While plugging in one's phone was not a difficult task, coupled with the above two it was just enough of a bother with a small enough payoff that we just didn't do it all that often.</li>
-<li>Thanks apple. I do not have an iPhone, but because they decided to drop the headphone jack, my current phone also lacks a headphone jack.
-minor quible: the cord they sent with the car was about an inch to short, the phone dangled pricariously an inch above the floor of the car instead of resting gently on the bottom.</li>
-</ol>
+<blockquote>
+  <p>It’s not a dad bod — it’s a father figure.</p>
+</blockquote>
 
-<p>So I set out to make something to address all of these issues. I set out to create something that:
-1. Had buttons in the car for easiest possible use.
-2. Did not depend in anyway on my phone.
-3. Could have the music changed.</p>
+<p>It’s funny way to excuses a bit of chub. After all, you’re too busy raising kids to spend hours at the gym getting ripped. Sometimes it’s good to remember what really matters, your children are far more important than having six-pack abs.</p>
 
-<h2>Electronic Design</h2>
+<p>But as I drift closer to “middle-aged” than “teenaged,” and as my kids grow, I keep wondering: What should I do with my body now?</p>
 
-<p>My first thought was to do something with an ESP8266. I thought maybe I could do a MIDI file, but alas doing such was not easy. I could make a little ringtone sort of output, but that would only allow for a single pitch at a time. I liked this idea at first because I could use ESPHome to do updates. But my daughter rejected the idea due to the sound quality, I didn't blame her.</p>
+<p>For years, I’ve worked out just because “it’s good for me.” But without a clear goal, I never knew when I was “fit enough.” I’d love to say that mindset meant I just kept going and it turned me into a mountain of muscle. Alas, that's far from the truth. The reality is that without a target, it’s easy to plateau, my strength gains leveled off, and my willpower to push through the pain ran out.</p>
 
-<p>I asked about this in the ESPHome subreddit and got suggested a DF Mini player. This is a fantastic little device that takes away a lot of the complicated work of doing MP3 projects. It's a postage stamp sized embedded MP3 player. I picked up a pack of 3 and started toying with them. They have a lot of cool abilities, I could still have an ESP8266 control the device and have it simply be the music player part of the setup. But I decided on something even simplier. If you ground the two IO pins on the DF Mini they function as next and back buttons. Super simple. I proofed this out on a bread board and de-soldered the speaker from the toy car to verify that everything worked. It worked great. That settles the electronic design portion of this project, but honestly that's not interesting part of this project.</p>
+<p>Why push harder when there’s no finish line? When will I ever be strong enough?</p>
 
-<h2>OpenSCAD, CADQuery, and FreeCAD</h2>
+<h1>A Reason</h1>
 
-<p>Where this project was really interesting was the mechanical design. This was my first major project in CADQuery. After my efforts in OpenSCAD left me feel disappointed in the language I was pleased to discover CADQuery. My main beef with OpenSCAD is that it should not be a language. It should be a library. This was when I first realized that, at least in the modern sense, a lot of what defines a language, and espectially it's success, are it's ecosystem and tools. I think I only ever once got a module from the internet to load in an OpenSCAD project of mine; package management just wasn't there. The language had a lot of idosyncracies. What language doesn't, but because it was a language all it's own that means IDE support is limited basically to just the official IDE, which also had it's own problems (what IDE doesn't).</p>
+<p>Before I can figure out when I’m strong enough, I have to know why I’m training at all. I can't plan a course if I don't know where I'm even going.</p>
 
-<p>All in all I went into OpenSCAD with excitement. I did a number of proejcts with it but any time things got complex it became a pain in the neck to work with. Enter CADQuery. CADQuery is a python library. Though to my dismay I never did manage to get it to work without the IDE. I'm sure it can be done but I never managed it. IDE aside, I did enjoy being able to just write normal python with all the normal python control structures and norms. But by the end of it I was becoming Jaded by the concept of imparative design entirely. While I appreciate the ability to put logic into my designs I found myself longing for constraints again. While FreeCAD has it's own problems, when I tell it that the outer edge of circle A should be exactly 78.6mm apart, I can depend on that staying true (foreshadowing). Constructing something imparitively is very powerful, but I found it to be a very error prone process and not a natural fit to what I was trying to do. My next project I'm going back to FreeCAD and see if constraints are as nice as I remember. There's got to be a reason why it's what the expensive tools use.</p>
+<p>As a father, the answer feels obvious. I’m not trying to build muscle to impress strangers or pick up women. The only “chicks” I want to pick up are my own kids, and I mean to literally pick them up.</p>
 
-<h2>Mechanical Design</h2>
+<p>That’s when I stumbled across the subreddit r/DadReflexes, a collection of clips showing dads doing incredible things to protect their kids. One video stuck with me. It’s an old clip from America’s Funniest Home Videos: two kids are riding down a hill on a toy car when, out of nowhere, a dad sprints past them and snatches a third child out of harm’s way, a split seconds before the car would have hit the oblivious youngster.</p>
 
-<p>There were two main components to the mechanical design, the face plate and the buttons. There is not much to say about the face plate other than it took some fiddling and deep thinking to get the design right. There are two clips on the back of the plate to hold it in the car. These took some tweaking to get right with out them just snapping off. However, when I first started tweaking them I clearly had the logic wrong because my plate went from being 78.6mm wide to ~80mm wide. Imparative construction takes a lot of careful thought. But once I got that logic sorted boy was it beautiful to see.</p>
+<p>It made me wonder:
+Could I sprint down a hill faster than a runaway toy car if it meant saving my child from injury?</p>
 
-<p>Much more interesting were the buttons. I designed these buttons, as I have done with a number of other projects, to be the one design to rule them all. I would be able to tweak just a few settings and it would generate a physical button suitable to my needs. It really did work but took some doing to get there. The basic design consisted of 2 parts. The cap and the base. Interally I imagined each of these in two separate parts of their own. The cap had the cover and the legs, and the base had the caddy and the shaft. The objective here was to create a design that would hole those momentary switch you can get for 100 for $5 online. The caddy was meant to be the physical interface between these buttons and the rest of the project. It had 4 slabs that would hold the button and let its little legs go through behind it. It also had 2 holes where one could put 3m screws. Attached to the caddy was the shaft which would extend through the face place of whatever object you put the button into. The cap then had a cover that would go over the button and make physical contact with the button and 4 legs that would pass through the caddy to the backside of the button. This design took me quite a while to tweak until it worked correctly but once I did it was oh so satisfying.</p>
+<p>From there, more questions flowed in:</p>
 
-<p>I originally had in mind that the button cap would have little latches on it's legs, but these proved difficult to print well. The legs them selves had to be very thing in order for that design to work and they were breaking easily. Then I realized I could simply deform the legs with my soldering iron. This worked very well. So well I ended up skipping the 3m screws for attaching the caddy. Instead the holds had matching pegs on the face plate that you melted together to hold it all together. While I'm typically a fan of being able to take it a part and put it back together again, the buttons are so easy to print that this approach seemed acceptable to me.</p>
+<ul>
+<li>Could I carry any member of my household to the hospital if I had to?</li>
+<li>Can I get down on the floor to play, and get back up easily?</li>
+<li>Am I going to be the reason we stop having fun because I’m out of breath?</li>
+<li>Can I catch my child before they run into the street?</li>
+<li>Can I lift the sofa to find a lost toy?</li>
+</ul>
 
-<h2>Assembly</h2>
+<p>Sometimes it’s serious, sometimes it’s playful. But the are guine feats I want to be capable of. Those are things a Father Figure should be able to do.</p>
 
-<p>Once I got it all designed and printed it was time to put it all together. After about 3 attempts to do custom PCBs I realized that most of the time perfboard works. Yea, it's not as pretty, but it's cheap and available and the turn around time is much faster. And in this case a custom PCB would have been over kill. I have a buck convert that would adapt the 6-7v DC down to a safe 4.5-5v DC for the DF Mini. I put a pin on the car's built in speaker and plugged everything into the perfboard. Heck, the perf board is probably also over kill by the time I trimed everything down. I tested it all on my desktop and then headed out to the garage. Put the car up on the "lift" (a pair of saw horses) and began working. Tested the voltage on the buck converter connected to the car's battery. I would have gotten a picture of it saying 5v but I couldn't be bothered to go get the aligator clips. Next I tweaked the trimming pot to set the volume. And of course as I installed the face plate a clip brock off. This ended up being a blessing in disguise as it allowed me to pull out the internals and tweak them several more times and will allow easy access to the SD card to replacing the songs. The next day little girl got to try it. She's... not great at staged pictures but I assure you despite the expression on her face, she loved it. </p>
+<h1>A Deeper Reason</h1>
 
-<h2>Final Thoughts</h2>
+<p>However I wanted a motivation that wouldn't fade. It needed to be grounded in something eternal. Why protect my family? Why carry them, catch them, lift them, run for them? In the long run, why does it matter? So of course I turned to the Bible. The Bible is a complicated book, and the verses I hold to could be debated. But I don't think I am stretching these verses or taking them out of context.</p>
 
-<p>I've already got my rant out of the way in the section about the CAD software. Beyond that this was also a reminder in keeping things simple. I had originally designed the face plate to hold onto the DF mini and the buck converter. This would have been neat, but entirely unnecessary (and the existing wires may not have even allowed for it). And it did end up giving the project much more flexibility. I also originally designed the face plate to have four buttons. Three for songs and one for stop. But turns out you can just power cycle the car to turn the stereo off and "next" and "back" work great when you only have 3 songs. Keep it simple. Partly also because the simpler I make it, the more projects I can accomplish. That's certainly a perk.</p>
+<p>So, enough with the preamble. Here’s what I’ve written for myself, my personal manifesto of sorts for having, and being, a true Father Figure:</p>
+
+<h1>The Father Figure Manifesto</h1>
+
+<p>Men,</p>
+
+<p>God has called us to use our bodies for his glory, we are to be living sacrifices (Romans 12:1) holy and acceptable to God. Keeping your body health is an act of worship. Further, we are called to be fathers to our children (Proverbs 22:6), love and give of our selves for our wives (Ephesians 5:25). Your body must not fail you in your responsibility to your family.</p>
+
+<p>Men ask yourself:</p>
+
+<ul>
+<li>Strength: Do you have the muscle you need?</li>
+<li>Dexterity: Can you control that muscle?</li>
+<li>Endurance: Can that muscle endure prolonged use?</li>
+<li>Agility: Can you bring that muscle from rest to action in an instant?</li>
+<li>Flexibility: Can that muscle reach where it's needed with out strain or pain?</li>
+<li>Resilience: Can you use that muscle until it's worn and then do it again the next day?</li>
+</ul>
+
+<h2>Expanding from Principle to Practical</h2>
+
+<p>With this as my basis I developed several questions to provide a deeper perspective:</p>
+
+<h3>Strength</h3>
+
+<ul>
+<li>Can you lift the sofa to recover the lost toy?</li>
+<li>Can you lift any member of your family and carry them?</li>
+<li>Can you open the pickle jar?</li>
+<li>Can you sprint to your child before they run into the street?</li>
+</ul>
+
+<h3>Dexterity</h3>
+
+<ul>
+<li>Can you throw to a child who can't yet catch?</li>
+<li>Can you balance as children tug you and climb on and off?</li>
+<li>Can you fix the tiny fiddly toy?</li>
+</ul>
+
+<h3>Endurance</h3>
+
+<ul>
+<li>Can you carry your child the whole way home from the park?</li>
+<li>Can you carry your spouse or child back down the hiking trail if something happens?</li>
+<li>Can you play tag without stopping?</li>
+</ul>
+
+<h3>Agility</h3>
+
+<ul>
+<li>Can you go from relaxed to engaged as fast as a child?</li>
+<li>Can you wake up and catch a child falling off the sofa?</li>
+<li>Can you switch from walking your child home to fight mode when a dog charges?</li>
+</ul>
+
+<h3>Flexibility</h3>
+
+<ul>
+<li>Can you tumble with a child on the floor and get back up with ease?</li>
+<li>Can you bend over to pick up a child without pain?</li>
+<li>Can you reach into awkward spaces?</li>
+</ul>
+
+<h3>Resilience</h3>
+
+<ul>
+<li>Can you tank from a bump, fail, or light strain and keep going?</li>
+<li>Can you endur an injury and recover from it quickly?</li>
+<li>Can you say your health won't end you? E.g. Heart attack?</li>
+<li>Can you sleep when you need to?</li>
+</ul>
+
+<h1>Conclusion</h1>
+
+<p>This isn’t perfect, but it’s useful. I’m sharing it not because it’s exactly what you should use, but because it’s what I use. Maybe it will spark some ideas for you, too. Godspeed, men. </p>
+
+<p>And to any women reading this, you may not have been my target audience, but I hope you find inspiration here all the same.</p>
  
 </div>
 
