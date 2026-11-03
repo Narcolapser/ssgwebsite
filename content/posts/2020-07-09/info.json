@@ -1,0 +1,8 @@
+{
+	"tags":["Simple Systems","IRC"],
+	"author":"Toben Archer",
+	"cover_text":"A giraffe talking on a cup an string",
+	"title":"Simple Systems Series Part 5: IRC",
+	"files":["irc_client.py","irc_interceptor.py","irc_server.py"]
+}
+

@@ -1,0 +1,11 @@
+# CMSContent Retrospective
+
+The last commit I made to CMSContent was November 20th 2019. I wrote a post-mortem about it 2021-10-26, That was just two months after I concluded my time at USD in August of 2021. That post is still worth while. But I am going to focus some what differently in this post. Since I wrote that other post now two and a half years ago I have read "Design Patterns" and "Clean Code" and many other books that have given me a lot greater insight into a lot of software deisgn in general. So I reviewed it recently to see what I think of it now in retrospect. I'm a little caught up on this particular project because it was the most significant thing I did in my time at USD and remains probably the single largest thing I've ever done. Also, I'm not sure if I am delighted or disturbed that it is still in use.
+
+## Design Patterns
+
+I am actually pretty impressed by the discipline and design of the whole portlet. Re-reading the code base was actually rather satisfying. I had several objects and their relationships is all rather well defined. It actually makes me a little sad looking at it. I had great hopes for the ability for it to be extended but that potential was not really realized. It was realized in itself, since there were 3 document types that I created, but I never got to add datasources for other things outside of the portal. 
+
+## Frontend
+
+The front end of the portal was a bit more of a disaster. jQuery, Polymer, vue. jsp. It was a bit all over the place as that was an era of a lot of change for HTML front ends. Javascript frameworks were coming and going like mad. Looking at the history on wikipedia, web-components first became a thing in 2011, and the dust had settled by 2019. You may remember that 2019 was also when the last update to this portal happened. It draws two interesting arcs. One of the history of the development of web components, one of my development as a front end developer. I learned a lot in the process of making that portlet.

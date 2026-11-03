@@ -1,0 +1,8 @@
+{
+        "tags":["Simple Systems","Telnet"],
+        "author":"Toben Archer",
+        "cover_text":"A giraffe doing something I haven't decided what yet.",
+        "title":"Simple Systems Series Part 1: Telnet",
+        "files":["telnet_client.py","telnet_server.py"]
+}
+

@@ -1,0 +1,41 @@
+Description of headers:
+
+https://tools.ietf.org/html/rfc822#section-3.1
+
+a header is basically <field name>:<field body>
+
+https://tools.ietf.org/html/rfc2068#section-4.4
+content-length is message body not message
+
+Request Line: GET / HTTP/1.1
+    Method  GET
+    URI:    /
+    HTTP v: HTTP/1.1
+User-Agent: Wget/1.19.4 (linux-gnu)
+Accept: */*
+Accept-Encoding: identity
+Host: lunduke.com
+Connection: Keep-Alive
+
+Available Methods:
+    OPTIONS
+    GET
+    HEAD
+    POST
+    PUT
+    DELETE
+    TRACE
+    
+Response:
+Status-Line: HTTP/1.1 200 OK
+
+Date: Thu, 12 Mar 2020 20:38:47 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Last-Modified: Thu, 12 Mar 2020 05:12:34 GMT
+ETag: "26ee-5a0a1668a0bad"
+Accept-Ranges: bytes
+Content-Length: 9966
+Vary: Accept-Encoding
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html

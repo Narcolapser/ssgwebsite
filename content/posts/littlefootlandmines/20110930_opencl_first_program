@@ -1,0 +1,11 @@
+Open CL first program
+I struggled to find a really good program to getting started on openCL. so, in typical programmer fashion, I decided to make my own that fixed where others came short. I tried a couple places to post this, but no where had really good support for posting my code. What I ended up doing was realizing that I can host files from UbuntuOne. You can get the file from here.
+
+The entire program is in one file for simplicity (first of my complaints against other examples). I go through the minimum steps to accomplish what is needed (another complaint) and explain what each step does and what the arguments that go into it are (my other big annoyance).
+
+Remember, I'm learning this to as I blog, so I explain everything to the best of my understanding (by basically reading the openCL reference guide and rewording it). There are a couple things in that file that I out right said, I don't understand. But Considering the amount of comments I put in, if you read all of this, you should have a very good grasp on the basic steps. I might format it more down the road to make it prettier, easier to read, and more consistent. Any comments for improvements are welcome.
+
+But from this point you have a code base to start from. And it is always always easier to start from a code base then to start from scratch. iterative development ftw!
+
+Posted by Technetium at 10:24 AM 
+Labels: opencl hello-world example code

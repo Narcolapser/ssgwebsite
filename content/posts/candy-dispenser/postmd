@@ -1,0 +1,35 @@
+# Electronics Project
+
+I have set a goal for myself to make an interesting electronics project every quarter this year. This is coming from the mind set of "If you want to be good at something, do it a lot." and so I'm starting by at very least doing. The first thing on my list is something that has been sitting in my mind for a while: A candy dispenser.
+
+## Overall objective
+
+The original idea here was "Wouldn't it be cool if when I click a reward on habitica it gives me the candy for that reward?" So unlike a normal candy dispenser I need this one to be electrically driven. It needs to be trigger-able remotely, so my mind immediately goes to an ESP8266 or ESP32. The top of it should of course be clear and refill able so the obvious solution was a mason jar. And lastly I wanted a single cord. If I was using an ESP dev board that shouldn't be a terribly big deal, the usb cord I use to initially set it up would also provide power to the brains and brawns. Lastly I was going to use this as an opportunity to develop my knowledge of OpenSCAD and use it to design the base for printing.
+
+## Open SCAD
+
+I had recently fallen in love with OpenSCAD. I like having my 3D models be described entirely in plain text as it plays nice with git. I like git. I'm a software developer after all. This was going to be my largest project in OpenSCAD. 8 smaller assemblies building up into a total of 5 individual printed parts. It was not as simple as I had hoped it would be. OpenSCAD, being a domain specific language rather than built ontop of an existing language has more rough edges than a full featured language might have. I found it annoyingly difficult to work on the sub assmeblies. It may have been a personal style of things but when I queried about it on the openscad subreddit I didn't see a lot of good advice on how I might have done it better. The advice kinda boiled down to:
+
+* Suck it up, it gets better the more you use it. (Kinda true of everything)
+* Try rendering to an STL and importing that. (but then I can't have inputs that leverage variables like OpenSCAD modules)
+* Maybe try CADQuery?
+
+If Openscad had some concept like pythons `if __name__ == '__main__':` that would make some parts of this easier. If OpenSCAD had the ability to sepcify what file should be the one rendering as you work on multiple files. That may seem like a lot be it is a standard concept for most IDEs now a days. I can specify what file is the root of the program and thusly should be run. Principally I don't see any difference between a large software project and a large CAD project with lots of smaller parts. Since CADQuery is written in python perhaps it will be what I need to accomplish that approach. We shall see.
+
+## Torque
+
+I sure learned my lesson on specs. I used a `28BYJ-48` stepper motor to drive the dispenser. I looked up the specs after the fact and found that this motor is capable of a scant 3Ncm. The motor binds up easily. If there are to many skittles on top of the singulator it has a hard time turning. How many skittles was to many? Like an inch deep. Not great. Certainly not the entire mason jar of skittles. I did this without actually examining the amount of force necessary. I span it with my finger but I'm realizing that the amount of force we are talking about here is very small, I don't think my finger is a fair judge of the force necessary. What this makes me think is that I'm going to want to create the tools necessary to figure out how much force these things need before I make projects in the future. It feels an aweful lot like I failed to measure the size of something before I set about building my device. 
+
+## Assembly
+
+I liked how I did the 5 individual parts. It is my first project that uses screws for assembly. This was good. It allowed me to print parts separately and assemble them. This kept the printing simple and it allowed for me to screw things like the node and the stepper controller to their carrier board which was way easier than if I had like tried to attach them to the inside of some single block. That would have been annoying and fiddly. 
+
+However. There was some problems. Most notably the singulator and the shield that sit on top of it easily fall off when you flip over the device to attach it to the mason jar.
+
+## ESPHome
+
+I used ESPHome for the programming of this project and that turned out to be a great plan. Mostly it made the integration with home assistant quite easy. 
+
+## Misc
+
+I should have made the screw for the Mason jar taller. The jar was applying to much pressure to the shield and it would bind up the motor. The mason jar really ought to bottom out on it's outer lip before it bottoms out on anything inside that it could apply pressure to. 

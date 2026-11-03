@@ -1,0 +1,16 @@
+openGL iterating post 2
+Technically this is on the 22nd, but I really meant it to be 20 minutes ago. anyway. I've got the next batch of commentaries done. I've taken to calling them commentaries in contrast to tutorials, because if you want the tutorial, go to the wiki book:
+http://en.wikibooks.org/wiki/OpenGL_Programming
+That is just the tutorial I'm following. I'm just adding to it to help some people along. mostly this are honestly just to help me think through things. but in the off chance that they help some one else. sweet. enjoy:
+
+Post #2:
+Iteration 3: Reworking to a more realistic structure.
+Iteration 4: Introducing: vertex buffer objects!
+Iteration 5: Passing info to the vertex shader.
+Iteration 6: Passing info from vertex to fragment shaders.
+Iteration 7: Interweaving in buffer objects.
+
+Links to the individual files have been replaced by a single link to a github for my blog: https://github.com/Narcolapser/Littlefoot-Landmines
+This tutorial's files can be found under the folder "OpenGL"
+Posted by Technetium at 10:16 PM 
+Labels: opengl, tutorials

@@ -1,0 +1,28 @@
+# Giraffey Journal Learnings Part 1
+
+So I finally did it. This last spring I turned my bullet journaling software into a hosted SaaS offering. I did this for myself as much as anyone. But my fall objective was not simply to have it up and posted for sharing, but to specifically advertise it and draw attention to it. And that is what I have done. Here are some things I have learned along the way.
+
+## Making SaaS offerings is a pain
+
+When you make a simple app, like an Android app, so much of your life is simpler. No race conditions, no cross-user security concerns, no "my server got hacked" security concerns. There is just so much that you just plainly don't have to worry about. A fair bit of my effort these last two months was spent on things that provide no intrinsic value to my product; they simply made sure I was less likely to get myself in trouble. It took a lot of time and literal actual money, since I got myself a domain and a VPS to keep myself safe and protected. I didn't really enjoy any aspect of this. But these were things that just had to be done.
+
+## Sharing is hard
+
+So I've got Giraffey Journal. I've got a polished product ready to share. Now what? I posted on Reddit. With over 3k people having seen my posts, I'm sitting at about 72 people who have visited the landing page, 6 people who have clicked through to the app, and 1 person who has actually signed up. What a horrendous ratio. And I'm out of ideas of where to post this. There is no end of communities on the internet I could seek out to share it with. But the vast majority of them do not take kindly to strangers posting what is to them effectively spam. I totally get it. But it means I'm shut out. Now what?
+
+As a naive child, you imagine how cool it would be to be an independent game developer, a rock star, a professional athlete. And we love to scare kids away by talking about the grit and determination it takes to actually be these things. This narrative _feels_ good to talk about. But it feels almost a little cruel because I personally know people who invested great deals of energy seeking after a dream like this only for it to kinda go nowhere. Things like luck and networking get talked about, but I usually see this in the form of "it's not what you know, it's who you know" and sometimes, more cynically, whose posterior you kiss. But I'm seeing now a twofold problem in front of me.
+
+A. I could develop a rapport in a community specific to my app, and that would earn me permission to post about it. But that takes a lot of time and effort. I'd get good returns for my effort, but it would be specialized and not transferable to other projects.
+B. I could develop a more generalized following. But that would then mean low returns for my efforts. I could transfer it to other projects, but it would not bring very good returns for my efforts.
+
+Even PewDiePie, who has literally millions of followers, was unable to gain traction for some of his projects. So what do you do?
+
+Turns out sharing is hard.
+
+## So what next?
+
+I'm going to try using Google Ads. See what kind of results it gets. But beyond that, this dead end is actually somewhat encouraging. I see the mountain I must climb. I know what is required of me. And I see the reward that awaits me at the top: being a self-employed game/software developer. And I am actively saying: No. I don't want to do that. I don't want to make all the sacrifices I see as necessary to climb that mountain. I don't want to live the stressful, precarious life that that mountain offers. Not now. Not in my 30s with 2 children. Ironically, I might actually have sufficient skill to accomplish it now, but I do not have the wherewithal to actually do so now.
+
+I'm still processing all of this. In many ways it's brought what I knew to be true into a felt reality. I knew what it took to climb this mountain, and I knew what reward sat at the top, but still I talked and thought like I might climb it. But now? Now I know I won't. But I still love writing programs. And so what this means is I will focus, first and foremost, on making software I like. From what I've seen of these sorts of things, it also happens to be a way up the mountain, at least partway. If I keep writing software I like, and then sharing it, I will eventually have a name for myself. And eventually, that might be a name I can monetize. But importantly, I plan to keep my day job and have fun. That's what is next.
+
+On to Feybricator. On to The Bureau. On to Sif, Skuld, Gullveig, and all the other little utilities I've made for my family. These spark joy. And I don't anticipate anyone other than myself and my family using them.

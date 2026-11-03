@@ -1,0 +1,7 @@
+{
+        "tags":["Simple Systems","SMTP"],
+        "author":"Toben Archer",
+        "cover_text":"A giraffe in a mail currier hat",
+        "title":"Simple Systems Series Part 3: SMTP",
+        "files":["smtp_client.py","smtp_interceptor.py","smtp_server.py"]
+}

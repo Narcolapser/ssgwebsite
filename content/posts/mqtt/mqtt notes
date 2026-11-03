@@ -1,0 +1,77 @@
+I am spinning my wheels this afternoon. I'm having a hard time getting going. 
+
+I've got a python program that publishes, but it uses python libraries. So I guess my next step is to create a python library that publishes using sockets. 
+
+I got my initial client from here: 
+https://medium.com/python-point/mqtt-basics-with-python-examples-7c758e605d4
+
+OASIS Standard: https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html
+
+Pub client made:
+
+Just published 20.900500059634815 to topic SSGTEST
+Just published 20.63423547411807 to topic SSGTEST
+Just published 20.34545865980755 to topic SSGTEST
+Just published 20.16453184692122 to topic SSGTEST
+Just published 20.965115380474636 to topic SSGTEST
+Just published 20.90520883776789 to topic SSGTEST
+
+Interceptor made:
+Upward: b'\x10\x1e\x00\x04MQTT\x04\x02\x00<\x00\x12Temperature_Inside0\x1b\x00\x07SSGTEST20.900500059634815'
+Downward: b' \x02\x00\x00'
+Upward: b'0\x1a\x00\x07SSGTEST20.63423547411807'
+nothing to pass down
+Upward: b'0\x1a\x00\x07SSGTEST20.34545865980755'
+nothing to pass down
+Upward: b'0\x1a\x00\x07SSGTEST20.16453184692122'
+nothing to pass down
+Upward: b'0\x1b\x00\x07SSGTEST20.965115380474636'
+nothing to pass down
+Upward: b'0\x1a\x00\x07SSGTEST20.90520883776789'
+nothing to pass down
+
+Notable: Nothing was sent before the first publishing. That might be two packets stacked though so let's break them apart and find out.
+
+Here is my first packet: \x10\x1e\x00\x04MQTT\x04\x02\x00<\x00\x12Temperature_Inside0\x1b\x00\x07SSGTEST20.900500059634815
+Broken up it looks like:
+
+Connect Header: \x10\x1e\x00\x04
+MQTT? MQTT
+Payload: \x04\x02\x00<\x00\x12Temperature_Inside0
+
+Publish header: \x1b\x00\x07
+Pyaload: SSGTEST20.900500059634815
+
+So that first header: 
+
+Byte 1: \x10 or 0001 0000
+The first nibble is the "MQTT Control Packet Type", in this case "CONNECT" which the clinet sends as it's first statement, a desire to connect. Connect has no flags associated with it, and infact by spec that will always be all zeros. So \x10 can be considered the connect byte.
+
+Byte 2: \x1e or 00011110 or 30
+This is the remaining length byte. Because the first bit is not set this is the only byte in the remaining length header. It specifies 30 more bytes to come. 
+
+Byte 3 and 4: \x00\x04, the packet identifier. Required for some packets, pub, sub, unsub, pub rec, pub ack, pub rel, pub comp, sub ack, unsub, unsub ack. It appears this can be any arbitrary number.
+
+So all together that is "Connecting, 30 bytes to follow, identifier #4". I don't understand the bytes one since the remainder of the string is 57 bytes... AAAH, I broke the packet wrong. There are infact two packets here:
+
+Connection packet: \x10\x1e\x00\x04MQTT\x04\x02\x00<\x00\x12Temperature_Inside0
+publish packet: \x1b\x00\x07SSGTEST20.900500059634815
+
+Carrying on. 
+
+Bytes 5-8, MQTT: so yes. these 4 bytes, "MQTT" in caps are required. Because reasons. *shrug*
+
+byte 9: \x04, or 4. The protocol level. 4 in this case, or 00000100
+
+Byte 10: \x02 or 2 or 00000010. These are the connect flags. In this case it is just saying this is a clean session. 
+
+Bytes 11 - 12: \x00<, or 60. The keep alive interval
+
+Bytes 13 - 15: \x00\x12 or 18, the payload size
+
+Bytes 16 - 34: Temperature_Inside, the payload
+
+Byte 35: 0? that's 48 on the ascii table, or 30hex. ???
+
+Packet two:
+Byte 1: \x1b, or

@@ -1,0 +1,8 @@
+{
+        "tags":["Simple Systems","DNS"],
+        "author":"Toben Archer",
+        "cover_text":"A giraffe reading a phonebook",
+        "title":"Simple Systems Series Part 2: DNS",
+        "files":["dns_client.py","dns_interceptor.py","dns_methods.py","dns_server.py"]
+}
+

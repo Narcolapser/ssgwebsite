@@ -1,0 +1,26 @@
+I have this idea, primarily for my own education. A number of simple systems to allow one to get in at the base level of various things. I’d like them to be as documented as possible, preferably a single file, pure python, with the default libraries.
+
+Consideration:
+    SSH (I don’t know how doable this is)
+    XMPP
+    MQTT
+    SNMP
+    BASH
+
+Declined:
+    DHCP - I don’t think I will bother with this one.
+    FTP - I never really run into it
+    LDAP - Just a little to out there.
+    POP3 - Redundant with SMTP
+
+Completed
+    Telnet
+    DNS
+    HTTP
+    SMTP
+    IRC
+
+Other projects to try:
+    Cloud file server
+    Diff based RESTful file collaboration system
+    make a firewall?

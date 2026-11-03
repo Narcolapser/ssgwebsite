@@ -1,0 +1,35 @@
+# Smartifying my 1960s touch plate lights
+
+When we toured our house before buying it I noticed the light switches looked different. At one point I noticed that when you pressed a switch there was an audible click in the basement. If you've worked with electronics at all you'll know the click I'm talking about. It was very clearly the sound of a relay. Putting two and two together I figured out the lights were entirely (or mostly more accurately) controlled by a bank of relays in the basement. 
+
+I mention this deal to say that I had been eyeing up that bank of relays since before we even bought the house. However, once we got the house other things took precendent. Floors, walls, yard work, etc. etc. etc., life of a home owner. But winter comes and house projects slow down as there is no working out side and no opening windows to air out chemicals. So last winter I finally got around to digging into the light controller as I've come to call it more deeply.
+
+## 2021 - Discovery
+
+It wasn't my first attempt to understand the relays, but it was my first successful attempt. They proved to be not terribly complicated, but annoyingly deceptive. The best example of this is the voltages listed on the bottom of the relays. They say the relay activates with 15v DC. I provided 15v DC and nothing happened. Turns out there is a little box that sits next to all of the relays that provides the power to actuate the relays. This box provides 67v AC. So there's the first lie. Next all the wries were supposed to be color coded to map to different locations. Not a lie, just a failure on the part of the person installing. Lastly it was an utter rats nest. Electrical tape over soldered joins, wire crimps, wire nuts, and in one case a cable nut used as a wire nut. In two of the boxes I did a fair bit of cleaning before I did anything else. The third one will be explained later. 
+
+I had an idea of how to actuate the relay now, but now how to know what state it was in? Unfortunately there was no indicator for that. So for that I had to monitor the main power that was running through it. As to trigger I had a problem: How do I trigger a relay that needs 67v AC? Short of winding my own transformer I have no way of providing that power. So, what I settled on was to just route the existing power through another relay to simulate a button press. There might be more elegant ways of doing this, but not at my skill level. It worked perfectly. At the end of winter last year I had about 7 lights that could be controlled via a web page. It provided some value, but was used exclusively by myself. I wanted this to be useful to everyone, not just me. But I had a prototype now so I left it for a year and came back to it this winter.
+
+## Intermission - Home assistant
+
+Between the winters of 2021 and 2022 I upgraded from OpenHab to Homeassistant. Aside from being happy to escape something writen in Java, Homeassistant is just a nicer piece of software in my opinion. What ended up being the kicker was I attempted to setup a Wemo light with both. Never managed it with OpenHab, was a few minutes of effort with Homeassistant. It still took me a while to fully understand how to work with Home Assistant, but I am glad I made the change.
+
+## 2022 - The build out
+
+I ordered a project box, the biggest I've ever worked with, which isn't saying much. About 8x10". A raspberry pi would be the brains, an arduino mega would provide the GPIO. 3 separate relay boards would provide the button simulation, and 3 sensor boards would provide mains detection. Finally a small power supply would provide all the power I'd need, since mains power was coming into this box for detection anyway that was a perfect solution. 
+
+First thing I would have done differently: I would have gotten a bigger box. It all fit, but I had to stack it. That's not great for maintainability.
+
+I test fit everything a couple of times and hot glued stand offs into the box. I assembled most of it and anchored it into my basement wall. Unfortunately I didn't test before hand if the powersupply would provide enough power to the RPi. It, in theory, can, but something about attempting to use the USB connector to provide the power for the pi made the voltage drop from the 5.5v the PSU was providing down to a meer 4v. Not enough to run the pi. I can solder wires onto the pi to still get the protection of the zener diode that protects it from over voltage, something I want to do because I've burned out a pi form an overvoltage previously, but Pis are scarse these days. Like 100-180$ for a pi. So I'm not risking it until I can dependably get ahold of more pis. For now the Pi gets run off of a usb cord coming out of the box. *sad wiring noises*
+
+I decided to use Cat5 cable to connect my controller box to the relay boxes. While it may seem strange to run mains power over cat5, which is 24guage wire, it's worth remembering the amount of power going through those wires. Detecting takes miliamps. As a result I have no concern about these wires. Remember, cat5 with PoE carries 50 watts at 48 volts for 1 amp of current. The alternative of using real power lines would have been hugely obnoxious. Using cat 5 I could use one cable for the sensor side, and another cable for the detector side. In all I ran 7 runs of cat 5 from the boxes to the controller. It worked great. And I like how the result looks.
+
+## The code
+
+I wanted to code the microcontroller from the raspberry pi. But it proved to be annoying and complicated so I gave up and used Arduino studio. I realized if I get the basic software on the arduino good enough it won't likely need to be reprogrammed. I did end up having to reprogram it a few times as I debugged and angled myself around unforeseen challenges (like the fact that my knock off arudino's analog pins appear to be completely dead). I would like to return to this some day and provide that functionality, but it wasn't critical to finish this project and it was holding everything else up. 
+
+Previously I had setup a web server to control the lights. This works but is not how most these things are done. I asked on the home assistant forums and was recommended I use MQTT. I've been meaning to learn this protocol for a long time, so this was finally the excuse I needed to push for it. I was really glad I went that way. It was super easy to setup an MQTT pub and sub script on the raspberry pi that would keep home assistant abreast of the state of the lights and respond to home assistant requests. I plan on doing more things with home assistant and MQTT because it is so easy and nice to work with. 
+
+# Conclusion
+
+This has undoubtedly been my largest under taking. I've been thinking about it and attempting to solve the problems for over 3 years now, even though the majority of the work was done this winter and last. I think over all about 30-40 hours of work. It's encouraging to see something like this come together, it lets me know that I'm not completely crazy when I dream of making something like this.

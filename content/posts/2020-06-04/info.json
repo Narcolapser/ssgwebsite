@@ -1,0 +1,8 @@
+{
+        "tags":["Simple Systems","Socket"],
+        "author":"Toben Archer",
+        "cover_text":"A giraffe looking at a socket wrench",
+        "title":"Simple Systems Series Part 0: Sockets",
+        "files":["socket_client.py","socket_server.py"]
+}
+

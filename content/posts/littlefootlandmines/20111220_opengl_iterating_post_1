@@ -1,0 +1,9 @@
+openGL iterating post 1
+I've started to write up my iterations through to make an openGL program. I'm really just following through with this tutorial: http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Introduction but I hope my comments will help newbies ease into openGL a little better. here they are, enjoy:
+
+iteration 1: Making a bloody window
+iteration 2: Making a basic render pipeline
+
+Links to the individual files have been replaced by a single link to a github for my blog: https://github.com/Narcolapser/Littlefoot-Landmines
+Posted by Technetium at 2:02 PM 
+Labels: opengl tutorials, wiki book adendum

@@ -1,0 +1,24 @@
+Library wrappers
+I'm trying to work as hard as I can on this project, but trying to swallow open CL and open GL is certainly no simple task. But I'm also being made aware of cross platform issues. while it is true that openGL and CL are just specifications and are therefore platform independent, it doesn't mean that the platform doesn't factor into it. the vast majority of the API is portable and will run on Linux/Mac/Windows just fine with out any trouble. Where the problems lie is in making calls to the system.
+
+In linux, in most cases, this means GL/glx.h, in windows it means windows.h. And I don't actually know what it is for mac (and I'm only mostly guessing with windows). While these libraries are portable, there are implementation differences between them. David Rosen in his post on the Wolfire blog, said "...you're going to be wrapping these low-level APIs in an abstraction layer anyway..." and I disagreed at first. I thought that with larger structures sure, or if there was more programmers than just mean and I wasn't trying to just do it quick and dirty, probably, but that just seemed like an extra step for nothing.
+
+As I plung further into these libraries I get where he was coming from. Allow me to explain the reason why you must write a library to abstract away from the graphics/etc API, and what that abstraction might look like.
+
+1. Portability:
+As I said earlier, just because openGL and openCL are portable, doesn't mean that they don't have implementation differences. The abstraction layer exists to prevent you from having to think about those differences more than once. And to port your engine to a new system with a different implementation, all that needs to be done is write a new abstraction for that system and the rest of your graphics (or physics) works fine and dandy.
+
+2. Simplicity:
+It is actually faster. Portability aside, you will achieve your result faster with a layer of abstraction than you will with trying to go with out one. OpenGL and OpenCL are not just game libraries, they are incredibly powerful general purpose graphics and computing libraries. Meaning, there is a lot to them and in the average game you'll probably only use a quarter of what they are capable of doing. Trying to keep track of the whole thing is a waste of time and energy. Abstract out what you need out, and forget the rest.
+
+3. Personality:
+This follows along with simplicity. You program will be unique to what it needs to do. it will (and if it doesn't it should) naming conventions, best practices, and ways of doing things in general. CL/GL are not your program. Cl/GL do not have your naming conventions, best practices, nor ways of doing things in general, nor will you theirs. Making a layer of abstraction makes the API your own. It also allows you to optimize as your program needs. If you use cubes alot you can abstract out a data type that is specific to cubes, this allows your code to assume things. if you know something is a cube, you need not say it has 8 vertices, you can assume that, you need not say the sides are all equal, you can assume that, and thus, you can describe a cube with only 4 data points (locx,locy,locz,scale) in contrast to 24 (3*8 vertices locations). The library allows your program's personality be polished.
+
+4. Debugging:
+When you abstract the library away, when you have one problem, it shows up everywhere, but if you fix that problem, it is fixed everywhere. If you don't abstract and you have a lot of code that is kind of similar, you can spend a lot of time chasing down similar bugs, or missing them completely and have error ridden code. one location for makes it easier to keep working properly, clean, and efficient.
+
+How this might look then is a simple hierarchy. (Hierarchies are your friends) You have at the top a single library interface for the rest of your code. inside of it, you have platform/implementation specific plug-gins for each target platform. those are all wrapped in a uniform package to create API calls, regardless of implementation, the same. Then you have the data structures and functions that are specific to your program, allowing you to optimize and specialize relatively easily.
+
+Just some simple thoughts. I'm still learning, so take my advise with a grain of salt. But it is certainly food for thought.
+
+Labels: API library wrapper

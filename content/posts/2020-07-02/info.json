@@ -1,0 +1,8 @@
+{
+        "tags":["Simple Systems","HTTP"],
+        "author":"Toben Archer",
+        "cover_text":"A giraffe looking at a globe",
+        "title":"Simple Systems Series Part 4: HTTP",
+        "files":["http_client.py","http_interceptor.py","http_server.py"]
+}
+

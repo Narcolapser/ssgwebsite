@@ -1,0 +1,8 @@
+{
+        "tags":["docker","nginx","https","tls"],
+        "author":"Toben Archer",
+        "cover":"sleepygiraffe7.jpg",
+        "cover_text":"A sleepy giraffe",
+        "title":"How to block access to TLS1.0 on a docker container registry"
+}
+

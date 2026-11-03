@@ -1,0 +1,30 @@
+I've been musing recently on a concept I'd like to write down a little. There are things that I want out of a home automation system that raises serious privacy concerns — specifically video and audio recording of my home.
+# The Problem
+
+The meme I put as the cover to this summarizes the problem quite neatly. I have no interest in wiretapping my own home. I have some modicum of trust for Amazon since I pay them for their service. I'm not 100% their product. In contrast, Google cannot seem to give away their home mini's fast enough. It seems everywhere I turn; there is a deal for one for free with something or cheap for the holidays. After that, the service is entirely free, meaning the user is the product. But putting those details aside, say I had complete faith in Google, Amazon, Facebook, etc. I still am uncomfortable with these devices because they are a huge security threat.
+
+My biggest fear is two-fold. First, everything is hackable, period. We learn every day about another tech company that was breached. And that means someone could be using my device to spy on me. I'll accept being called paranoid there, but it is unnerving to know that things done in private might be known by people unknown. The other one is aspect is more likely, governments. Big phone companies have already set up automated systems for dealing with government requests for wiretapping and the like. It's not a question of if, it's a question of when will the government leverage this same thing with these devices. It may be hard in the US, but in many other countries, there aren't protections against this kind of spying (e.g., China, Russia, Syria, etc.).
+
+Never the less, I want my home to know what rooms I'm in, to adjust light and climate appropriately. I want it to respond to my voice when I ask for music or lights. I want it to give me a report on how I use my home so I can know where to invest money for the best results. These sorts of things require video and audio recording, so how do we get around it?
+
+# A Solution
+
+The primary concern is private information getting out. But mostly that's detailed information. Of course, I would prefer if no information escaped my home, but knowing that it's not a real-time video of me playing with my daughter is progress. So my idea is this: A bottle neck. If you process the information from your microphones and cameras locally, you can keep the bandwidth of information leaving your house. And I mean a severe bottleneck, in the area of 100-1000 *bytes* per second. But with that 1k connection, you could get every second download a complete list of who is in the house and where, the state of every IoT device, etc. In plain text, stripped of extraneous data, you can get much information in 1k.
+
+The biggest challenge to this idea is one I said earlier: Everything is hackable. If I set up a switch and program it only to allow 1kbps, what is stopping someone from simply changing that configuration and allowing 1gbps through instead? Soft solutions won't cut it. However, if my humble switch can only manage 1mbps, it doesn't matter how they configure it, it will never get to 1gbps.
+
+# Network Choker 1000
+
+Here is my design. Make a physical device that connects the two networks. We want to make it somewhat variable and yet unhackable. My idea is to use pins on pairs of memory chips. Two chips will sit on either side of the network. Their data pins would be connected via jumpers. If we say there were 10 channels (wires) between them, and each channel was physically only capable of carrying 100 bps, you could adjust your network choker by adding or removing jumpers. 1 jumper, 100bps, 5 jumpers, 0.5kpbs.
+
+This design needs a few other keys to work correctly. The next part of this is the addresses. A crafty hacker could force more data through by taking control of the memory address system. Say that said hacker set up a system where each of the 256 possible byte configurations was loaded into the receiving side. Then by forcing the address to change rapidly and not writing anything, you could push as much data as the speed of the address changing would allow. This address changing must be controlled in hardware. A separate chip, a simple register, is set to count endlessly through the possible address. A frequency crystal controls the speed of the counting, and the voltage of that crystal is protected behind a Zener diode. If a hacker tries to raise the voltage of the crystal above acceptable levels, the Zener will break over and cut power to the crystal.
+
+These systems together should make a pretty reliable system for transferring data from the internal network to the external network. One other little feature I would add is something I'd call an ethernet breaker. Like electrical breakers, if some undesirable event occurs, the physical connection between the sides is cut, and you must physically come and reconnect the system to restore the system.
+
+# Caveats
+
+There are a few things that need to be known with this system. The first goes without saying if you are physically compromised, you're pwned. This device isn't protection against physical attacks. But if they have physical access to your network, you are, by definition, pwned.
+
+Second: No radios, period. If there is anything on the secured side of the network that is capable of using wifi, blue tooth, or any other wireless communication, you will be pwned. For example, if your security camera has ethernet and wifi, then a hacker could (painstakingly over the slow connection) connect your camera to another network and establish a high-speed route around the network choker.
+
+Third: No more clouding. This should go without saying as it is the entire point, but all of your data must now be processed locally. This means you will need more horsepower in your local network to process those loads. However, much processing power you need to do computer vision on; however, many cameras you have. We could be talking a raspberry pi; we could be talking a pair of GPU powerhouse machines. It's a cost I would be willing to pay for improved security.
