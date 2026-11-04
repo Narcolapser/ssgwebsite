@@ -2,6 +2,25 @@
 
 This repository houses the code and tools for my personal website. Having gone through many variations and much history I finally decided to start over fresh, primarily for security/privacy reasons. After years of hosting on my own RPi I've also shifted paradigm to hosting on CloudFlare pages instead to avoid having my personal website dependant on my ever changing home network. 
 
+## Building the site
+
+Published posts live in `content/posts/YYYY-MM-DD/`, with `post.md`, `info.json`,
+and optional `cover.jpg` and supplemental files listed in the metadata. Other
+folders in `content/posts/` are not included in the published post list.
+
+From the repository root:
+
+```sh
+python3 -m venv venv
+venv/bin/python -m pip install -r requirements
+venv/bin/python src/freeze.py
+```
+
+The freezer reads this repository's content and writes the static site to `dist/`.
+Paths are resolved relative to the source files, so it can also be invoked from
+another working directory. Review and commit the generated `dist/` changes to
+publish them through the deployment pipeline below.
+
 ## Deployment
 
 The site now targets **Cloudflare Workers Static Assets**, using Wrangler to

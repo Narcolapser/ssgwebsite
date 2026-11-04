@@ -13,10 +13,10 @@ def is_date(val):
         return False
 
 app = Flask(__name__)
-app.config['FREEZER_DESTINATION'] = '../dist'
+repo_path = Path(__file__).resolve().parent.parent
+app.config['FREEZER_DESTINATION'] = str(repo_path / 'dist')
 
-ssg_blog_path = '/home/toby/Code/ssg-blog'
-#ssg_blog_path = '/Users/toby/Code/ssg-blog'
+ssg_blog_path = repo_path / 'content' / 'posts'
 
 posts = [{'date':post} for post in os.listdir(ssg_blog_path) if is_date(post)]
 posts = sorted(posts, key=lambda x: x['date'], reverse=True)

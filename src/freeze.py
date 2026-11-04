@@ -1,52 +1,19 @@
 from flask_frozen import Freezer
-from main import app
-import os
-import shutil
+from main import app, posts
 from pathlib import Path
-import json
-from datetime import datetime
+import shutil
 
 freezer = Freezer(app)
-
-ssg_blog_path = '/home/toby/Code/ssg-blog'
-#ssg_blog_path = '/Users/toby/Code/ssg-blog'
-
-def is_date(val):
-    try:
-        datetime.strptime(val,'%Y-%m-%d')
-        return True
-    except:
-        return False
-
-posts = [{'date':post} for post in os.listdir(f'{ssg_blog_path}') if is_date(post)]
-posts = sorted(posts, key=lambda x: x['date'], reverse=True)
-all_tags = set()
-for post in posts:
-    #post['content'] = open(f'/home/toby/Code/ssg-blog/{post["date"]}/post.md').read()
-    info = json.load(open(f'{ssg_blog_path}/{post["date"]}/info.json'))
-    post['title'] = info['title']
-    post['tags'] = info['tags']
-    post['files'] = info['files'] if 'files' in info else None
-    cover_path = Path(f'{ssg_blog_path}/{post["date"]}/cover.jpg')
-    post['cover'] = cover_path.exists()
-    all_tags.update(info['tags'])
-
-post_dict = {post['date']:post for post in posts}
 
 @freezer.register_generator
 def get_post():
     for post in posts:
         yield {'post_date': post['date']}
 
-# @app.route('/static/<post>/<file_name>')
-# def get_blog_file(post, file_name):
 @freezer.register_generator
 def get_blog_file():
     for post in posts:
-        print(post)
         if post['cover']:
-            print(f'post: {post["date"]} has a cover. adding it:')
-            print({'post':post['date'],'file_name':'cover.jpg'})
             yield {'post':post['date'],'file_name':'cover.jpg'}
             
         if not post['files']:
@@ -57,4 +24,5 @@ def get_blog_file():
 
 if __name__ == '__main__':
     freezer.freeze()
-    shutil.copyfile('./dist/home.html','./dist/index.html')
+    destination = Path(app.config['FREEZER_DESTINATION'])
+    shutil.copyfile(destination / 'home.html', destination / 'index.html')
